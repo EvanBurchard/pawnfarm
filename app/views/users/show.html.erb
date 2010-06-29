@@ -1,0 +1,6 @@
+<h1>
+  <b>Login:</b><%=h @user.login %>
+</h1>
+<% if @user == current_user %>
+<%= link_to 'Edit', edit_account_path %>
+<% end %>
