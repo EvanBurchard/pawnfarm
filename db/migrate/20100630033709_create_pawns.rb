@@ -5,9 +5,7 @@ class CreatePawns < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :twitter_username, :null => false
       t.string :twitter_password, :null => false
-      t.integer :frequency
-      t.string :schedule
-
+      
       t.timestamps
     end
   end

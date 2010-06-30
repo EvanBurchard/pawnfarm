@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  scheme_type: 
+  pawn: 
+  target: MyString
+  prompt: MyString
+  random_interval: false
+  schedule: MyString
+
+two:
+  scheme_type: 
+  pawn: 
+  target: MyString
+  prompt: MyString
+  random_interval: false
+  schedule: MyString

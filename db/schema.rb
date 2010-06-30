@@ -9,15 +9,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100630033709) do
+ActiveRecord::Schema.define(:version => 20100630040319) do
 
   create_table "pawns", :force => true do |t|
     t.integer  "user_id",          :null => false
     t.string   "name",             :null => false
     t.string   "twitter_username", :null => false
     t.string   "twitter_password", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "schemes", :force => true do |t|
+    t.integer  "scheme_type_id"
+    t.integer  "pawn_id"
+    t.string   "target"
+    t.string   "prompt"
+    t.boolean  "random_interval"
     t.integer  "frequency"
-    t.string   "schedule"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
