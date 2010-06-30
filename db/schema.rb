@@ -21,10 +21,8 @@ ActiveRecord::Schema.define(:version => 20100630040319) do
   end
 
   create_table "schemes", :force => true do |t|
-    t.integer  "scheme_type_id"
+    t.string   "type"
     t.integer  "pawn_id"
-    t.string   "target"
-    t.string   "prompt"
     t.boolean  "random_interval"
     t.integer  "frequency"
     t.datetime "created_at"
