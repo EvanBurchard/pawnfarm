@@ -1,0 +1,2 @@
+class AtScheme < Scheme
+end

@@ -5,7 +5,12 @@ class CreateSchemes < ActiveRecord::Migration
       t.references :pawn
       t.boolean :random_interval
       t.integer :frequency
-
+      t.string :tweet_prompt
+      t.string :tweet_prompt_relationship
+      t.string :prompt
+      t.string :target
+      t.string :target_relationship
+      
       t.timestamps
     end
   end

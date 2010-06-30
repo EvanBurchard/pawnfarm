@@ -9,7 +9,11 @@ describe Scheme do
   it { should have_db_column(:frequency).of_type(:integer) }
   it { should have_db_column(:created_at).of_type(:datetime) }
   it { should have_db_column(:updated_at).of_type(:datetime) }
-  
+  it { should have_db_column(:tweet_prompt) }
+  it { should have_db_column(:tweet_prompt_relationship) }
+  it { should have_db_column(:prompt) }
+  it { should have_db_column(:target) }
+  it { should have_db_column(:target_relationship) }        
 
   before(:each) do
     @valid_attributes = {

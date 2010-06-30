@@ -25,6 +25,11 @@ ActiveRecord::Schema.define(:version => 20100630040319) do
     t.integer  "pawn_id"
     t.boolean  "random_interval"
     t.integer  "frequency"
+    t.string   "tweet_prompt"
+    t.string   "tweet_prompt_relationship"
+    t.string   "prompt"
+    t.string   "target"
+    t.string   "target_relationship"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  tweet_prompt: MyString
+  tweet_prompt_relationship: MyString
+  prompt: MyString
+
+two:
+  tweet_prompt: MyString
+  tweet_prompt_relationship: MyString
+  prompt: MyString

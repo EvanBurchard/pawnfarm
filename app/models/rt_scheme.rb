@@ -1,0 +1,3 @@
+class RtScheme < Scheme
+  
+end
