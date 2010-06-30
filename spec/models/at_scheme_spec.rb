@@ -1,8 +1,12 @@
 require 'spec_helper'
 
 describe AtScheme do
+  it { should validate_presence_of(:target) }
+  
   before(:each) do
     @valid_attributes = {
+      :pawn_id => 1,
+      :type => "at_scheme",
       :tweet_prompt => "value for tweet_prompt",
       :tweet_prompt_relationship => "value for tweet_prompt_relationship",
       :prompt => "value for prompt",
