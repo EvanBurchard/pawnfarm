@@ -6,6 +6,7 @@ describe Pawn do
   
   it { should have_db_column(:user_id).of_type(:integer).with_options(:null => false) }
   it { should have_db_column(:name).of_type(:string).with_options(:null => false) }
+  it { should have_db_column(:description).of_type(:string) }
   it { should have_db_column(:twitter_username).of_type(:string).with_options(:null => false) }
   it { should have_db_column(:twitter_password).of_type(:string).with_options(:null => false) }
   it { should have_db_column(:created_at).of_type(:datetime) }

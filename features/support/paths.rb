@@ -7,6 +7,14 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
+    when /the show page for (.+)/
+      polymorphic_path(model($1))
+    when /the edit page for (.+)/
+      edit_polymorphic_path(model($1))
+    when /the new page for pawns/
+      new_pawn_path
+    when /the pawn index page/
+      pawns_path
 
     when /the home\s?page/
       '/'

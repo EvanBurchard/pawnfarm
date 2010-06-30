@@ -1,0 +1,7 @@
+<h1>Edit Pawn</h1>
+
+<% form_for @pawn do |f|%>
+	<%= f.error_messages %>
+	<%= render :partial => f %>
+	<%= f.submit "Update" %>
+<% end %>

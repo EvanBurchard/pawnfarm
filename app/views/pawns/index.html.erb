@@ -1,0 +1,7 @@
+<h2>Pawns</h2>
+<ul>
+  <% for pawn in @pawns %>
+  <li><%= link_to pawn.name, pawn_path(pawn) %></li>
+  <li><%= h pawn.description %></li>
+  <% end %>
+</ul>

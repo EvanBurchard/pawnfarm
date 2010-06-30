@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(:version => 20100630040319) do
   create_table "pawns", :force => true do |t|
     t.integer  "user_id",          :null => false
     t.string   "name",             :null => false
+    t.string   "description"
     t.string   "twitter_username", :null => false
     t.string   "twitter_password", :null => false
     t.datetime "created_at"
