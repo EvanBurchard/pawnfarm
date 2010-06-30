@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100629150411) do
+ActiveRecord::Schema.define(:version => 20100630033709) do
+
+  create_table "pawns", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.string   "name",             :null => false
+    t.string   "twitter_username", :null => false
+    t.string   "twitter_password", :null => false
+    t.integer  "frequency"
+    t.string   "schedule"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                              :null => false
