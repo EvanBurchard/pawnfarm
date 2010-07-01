@@ -30,6 +30,7 @@ class PawnsController < ApplicationController
   end
   
   def update
+    params[:pawn][:scheme_ids] ||= []  
     @pawn.update_attributes(params[:pawn])
     redirect_to pawn_path(@pawn)
   end

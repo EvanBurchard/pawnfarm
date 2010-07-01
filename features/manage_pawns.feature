@@ -50,3 +50,17 @@ Feature: Pawn Management
     Then I should be on the pawn index page
     And that pawn should not exist
   
+  @wip
+  Scenario: Creating pawn with schemes attached
+    Given a user exists with login: "myself", password: "secret", email: "myself@flksd.com", id: 1
+    And a tweet_scheme exists with title: "scheme 1", description: "this is a scheme", user_id: 1
+    And I am logged in as "myself" with password "secret"
+    And I am on the new page for pawns
+		And I fill in the following:
+  		 | Name       | new_pawn    |
+  		 | Description | mwahahahahaha |
+  		 | Twitter username | twitter_username    |
+  		 | Twitter password       | secret    |
+  	And I check "pawn_scheme_ids_"	 
+		And I press "Create"
+		Then a pawn should exist with name: "new_pawn"
