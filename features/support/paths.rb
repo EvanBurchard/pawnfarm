@@ -8,14 +8,33 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
     when /the show page for (.+)/
-      polymorphic_path(model($1))
+      if $1 == "that tweet_scheme"
+        scheme_path(model($1))
+      else
+        polymorphic_path(model($1))        
+      end
     when /the edit page for (.+)/
-      edit_polymorphic_path(model($1))
+      if $1 == "that tweet_scheme"
+        edit_scheme_path(model($1))
+      else
+        edit_polymorphic_path(model($1))        
+      end
     when /the new page for pawns/
       new_pawn_path
     when /the pawn index page/
       pawns_path
 
+    when /the new page for schemes/
+      new_scheme_path
+    when /the scheme index page/
+      schemes_path
+
+    when /the new page for tweet_schemes/
+      new_schemes_path
+    when /the tweet_scheme index page/
+      schemes_path
+
+      
     when /the home\s?page/
       '/'
     when /the registration page/

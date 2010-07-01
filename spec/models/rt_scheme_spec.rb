@@ -5,7 +5,8 @@ describe RtScheme do
   
   before(:each) do
     @valid_attributes = {
-      :pawn_id => 1,
+      :user_id => 1,
+      :title => "rt_scheme",
       :type => "rt_scheme",
       :target => "value for target",
       :target_relationship => "value for target_relationship"

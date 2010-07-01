@@ -1,8 +1,10 @@
 class CreateSchemes < ActiveRecord::Migration
   def self.up
     create_table :schemes do |t|
+      t.references :user
+      t.string :title, :null => false
+      t.string :description
       t.string :type
-      t.references :pawn
       t.boolean :random_interval
       t.integer :frequency
       t.string :tweet_prompt

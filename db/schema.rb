@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100630040319) do
+ActiveRecord::Schema.define(:version => 20100630194513) do
 
   create_table "pawns", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -21,9 +21,16 @@ ActiveRecord::Schema.define(:version => 20100630040319) do
     t.datetime "updated_at"
   end
 
+  create_table "pawns_schemes", :id => false, :force => true do |t|
+    t.integer "pawn_id",   :null => false
+    t.integer "scheme_id", :null => false
+  end
+
   create_table "schemes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title",                     :null => false
+    t.string   "description"
     t.string   "type"
-    t.integer  "pawn_id"
     t.boolean  "random_interval"
     t.integer  "frequency"
     t.string   "tweet_prompt"

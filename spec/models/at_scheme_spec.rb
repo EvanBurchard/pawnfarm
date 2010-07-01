@@ -5,8 +5,9 @@ describe AtScheme do
   
   before(:each) do
     @valid_attributes = {
-      :pawn_id => 1,
+      :user_id => 1,
       :type => "at_scheme",
+      :title => "at_scheme",
       :tweet_prompt => "value for tweet_prompt",
       :tweet_prompt_relationship => "value for tweet_prompt_relationship",
       :prompt => "value for prompt",
