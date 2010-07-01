@@ -4,9 +4,9 @@ class Scheme < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :title
   validates_presence_of :type  
-  
+
   def self.select_options
-    subclasses.map{ |c| c.to_s }.sort
+    ["TweetScheme", "RTScheme", "AtScheme"]
   end
 
   @child_classes = []
@@ -20,5 +20,11 @@ class Scheme < ActiveRecord::Base
     @child_classes
   end
 
+  def type_helper   
+    self.type 
+  end 
+  def type_helper=(type)   
+    self.type = type
+  end
   
 end

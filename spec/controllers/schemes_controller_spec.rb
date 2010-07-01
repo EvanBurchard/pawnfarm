@@ -114,16 +114,17 @@ describe SchemesController do
     
     before(:each) do
       Scheme.stub!(:new).and_return(@scheme = mock_model(Scheme, :save=>true))      
+      TweetScheme.stub!(:new).and_return(@scheme = mock_model(Scheme, :save=>true))      
       @scheme.stub!(:user_id=).and_return(true)      
       controller.stub!(:current_user).and_return(@current_user = mock_model(User, :id=>1))
     end
 
     def do_create
-      post :create, :scheme =>{:title=>"scheme", :description => "this is a scheme"}
+      post :create, :scheme =>{:title=>"scheme", :description => "this is a scheme", :type => "TweetScheme"}
     end
     
     it "should create the scheme" do
-      Scheme.should_receive(:new).with("title"=>"scheme", "description" => "this is a scheme").and_return(@scheme)
+      TweetScheme.should_receive(:new).and_return(@scheme)
       do_create
     end
     
@@ -146,17 +147,17 @@ describe SchemesController do
   describe "when I unsuccessfully POST 'create" do 
     
     before(:each) do
-      Scheme.stub!(:new).and_return(@scheme = mock_model(Scheme, :save=>false))
+      TweetScheme.stub!(:new).and_return(@scheme = mock_model(Scheme, :save=>false))
       @scheme.stub!(:user_id=).and_return(true)      
       controller.stub!(:current_user).and_return(@current_user = mock_model(User, :id=>1))
     end
 
     def do_create
-      post :create, :scheme =>{:title=>"scheme", :description => "this is a scheme"}
+      post :create, :scheme =>{:title=>"scheme", :description => "this is a scheme", :type => "TweetScheme"}
     end
     
     it "should create the scheme" do
-      Scheme.should_receive(:new).with("title"=>"scheme", "description" => "this is a scheme").and_return(@scheme)
+      TweetScheme.should_receive(:new).and_return(@scheme)
       do_create
     end
     

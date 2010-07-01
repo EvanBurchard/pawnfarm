@@ -17,7 +17,8 @@ class SchemesController < ApplicationController
   end
   
   def create
-    @scheme = Scheme.new(params[:scheme])
+    @scheme = params[:scheme][:type].constantize.new(params[:scheme])
+    
     @scheme.user_id = current_user.id
     if @scheme.save
       redirect_to scheme_path(@scheme)

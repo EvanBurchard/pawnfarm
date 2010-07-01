@@ -3,9 +3,6 @@ Feature: Scheme Management
   As a chessmaster
   I want to be able to create, view, edit, and delete schemes of my schemes
 
-#needs a type
-#needs redirect to somewhere
-  @wip
   Scenario: Scheme creation
     Given a user exists with login: "myself", password: "secret", email: "myself@flksd.com"
     And I am logged in as "myself" with password "secret"
@@ -13,8 +10,9 @@ Feature: Scheme Management
 		And I fill in the following:
   		 | Title       | new_scheme    |
   		 | Description | mwahahahahaha |
+  	And I select "Tweet" from "scheme_type"	 
 		And I press "Create"
-		Then a tweet_scheme should exist with title: "new_scheme"
+		Then a scheme should exist with title: "new_scheme"
     
   Scenario: Scheme index
     Given a tweet_scheme exists with title: "scheme 1", description: "this is a scheme", user_id: 1

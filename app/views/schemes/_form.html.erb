@@ -4,3 +4,8 @@
 <%= form.label :description %><br/>
 <%= form.text_field :description %><br />
 <br/>
+
+<%= form.select :type, [["Tweet", Scheme.select_options[0]], 
+                        ["@", Scheme.select_options[1]], 
+                        ["RT", Scheme.select_options[2]]] %>
+
