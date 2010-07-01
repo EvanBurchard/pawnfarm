@@ -11,7 +11,7 @@
 <%= form.text_field :twitter_password %><br />
 <br/>
 
-<% for scheme in Scheme.find(:all) %>  
+<% for scheme in Scheme.find_all_by_user_id(current_user) %>  
     <div>  
       <%= check_box_tag "pawn[scheme_ids][]", scheme.id, @pawn.schemes.include?(scheme) %>  
       <%= scheme.title %>  
