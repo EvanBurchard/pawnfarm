@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  scheme: 
+  pawn: 
+  state: MyString
+  candidate_a: MyString
+  candidate_b: MyString
+  winner: MyString
+
+two:
+  scheme: 
+  pawn: 
+  state: MyString
+  candidate_a: MyString
+  candidate_b: MyString
+  winner: MyString

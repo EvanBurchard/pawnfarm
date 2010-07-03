@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100630194513) do
+ActiveRecord::Schema.define(:version => 20100703172056) do
+
+  create_table "executions", :force => true do |t|
+    t.integer  "scheme_id"
+    t.integer  "pawn_id"
+    t.string   "state"
+    t.string   "candidate_a"
+    t.string   "candidate_b"
+    t.string   "winner"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pawns", :force => true do |t|
     t.integer  "user_id",          :null => false
