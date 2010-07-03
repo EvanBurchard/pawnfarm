@@ -6,7 +6,7 @@ class Scheme < ActiveRecord::Base
   validates_presence_of :type  
 
   def self.select_options
-    ["TweetScheme", "RTScheme", "AtScheme"]
+    ["TweetScheme", "RtScheme", "AtScheme"]
   end
 
   @child_classes = []

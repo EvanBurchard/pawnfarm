@@ -3,5 +3,5 @@
 <% form_for @scheme do |f|%>
 	<%= f.error_messages %>
 	<%= render :partial => f %>
-	<%= f.submit "Create"%>
+	<%= f.submit "Create", :id => "save_button" %>
 <% end %>

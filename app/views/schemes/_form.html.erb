@@ -5,7 +5,44 @@
 <%= form.text_field :description %><br />
 <br/>
 
-<%= form.select :type, [["Tweet", Scheme.select_options[0]], 
-                        ["@", Scheme.select_options[1]], 
-                        ["RT", Scheme.select_options[2]]] %>
+<p>This should be a scheme that will prompt turkers to  
+<%= form.select :type, 
+                        [["Tweet", Scheme.select_options[0]], 
+                        ["RT", Scheme.select_options[1]], 
+                        ["@", Scheme.select_options[2]]]%> 
+<span id="target_text">twitter user <%= form.text_field :target %> 
+('s   <%= form.select :target_relationship, 
+                          ["self", "followers", "friends"]%> )</span>
+<span id="prompt_text">given the prompt <%= form.text_field :prompt %> and a recent tweet from
+<%= form.text_field :tweet_prompt %>('s   <%= form.select :tweet_prompt_relationship, 
+                          ["self", "followers", "friends"]%> )</span> every <%= form.text_field :frequency %> minutes.</p><br />
 
+<%= form.label "Select true if you don't want this to happen exactly on schedule:" %><br />
+<%= form.select :random_interval, [true, false] %><br /><br />
+
+
+<script type="text/javascript">
+  //<![CDATA[
+  function check_selected_value(el) {
+
+    if (el.value == "RtScheme") {
+      $('prompt_text').hide();
+      $('target_text').show();
+
+    }
+    else if (el.value == "AtScheme"){
+      $('target_text').show();
+      $('prompt_text').show();
+      
+      
+    }
+    else if (el.value == "TweetScheme"){
+      $('target_text').hide();
+      $('prompt_text').show();
+      
+    }
+  }
+  //]]>
+  </script>
+  
+  <%= observe_field("scheme_type", :frequency => 0.5, :function => "check_selected_value($('scheme_type'))") %>

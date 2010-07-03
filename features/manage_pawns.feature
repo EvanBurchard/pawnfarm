@@ -50,7 +50,6 @@ Feature: Pawn Management
     Then I should be on the pawn index page
     And that pawn should not exist
   
-  @wip
   Scenario: Creating pawn with schemes attached
     Given a user exists with login: "myself", password: "secret", email: "myself@flksd.com", id: 1
     And a tweet_scheme exists with title: "scheme 1", description: "this is a scheme", user_id: 1

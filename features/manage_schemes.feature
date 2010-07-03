@@ -49,3 +49,26 @@ Feature: Scheme Management
     Then I should be on the scheme index page
     And that tweet_scheme should not exist
   
+  Scenario: RT Scheme creation
+    Given a user exists with login: "myself", password: "secret", email: "myself@flksd.com"
+    And I am logged in as "myself" with password "secret"
+    And I am on the new page for schemes
+		And I fill in the following:
+  		 | Title       | new_scheme    |
+  		 | Description | mwahahahahaha |
+  		 | scheme_target      | twitter_name  |
+  	And I select "RT" from "scheme_type"
+		And I press "Create"
+		Then a scheme should exist with title: "new_scheme"
+		
+	Scenario: @ Scheme creation
+    Given a user exists with login: "myself", password: "secret", email: "myself@flksd.com"
+    And I am logged in as "myself" with password "secret"
+    And I am on the new page for schemes
+		And I fill in the following:
+  		 | Title       | new_scheme    |
+  		 | Description | mwahahahahaha |
+  		 | scheme_target      | twitter_name  |
+  	And I select "@" from "scheme_type"
+		And I press "Create"
+		Then a scheme should exist with title: "new_scheme"
