@@ -13,7 +13,7 @@ class Execution < ActiveRecord::Base
   aasm_state :building_form
   aasm_state :seeking_candidates, :enter => :turk_for_candidates
   aasm_state :seeking_review_of_candidates, :enter => :turk_for_review
-  aasm_state :tweeted# , :enter => :tweet_winner
+  aasm_state :tweeted#, :enter => :cleanup_and_replicate
 
   aasm_event :seek_candidates do
     transitions :to => :seeking_candidates, :from => :building_form
@@ -83,6 +83,15 @@ class Execution < ActiveRecord::Base
     tweet
     pawn.tweet
   end
+
+  # def cleanup_and_replicate
+  #   clear_tasks_and_forms
+  #   spawn_new_execution
+  # end  
+  # def clear_tasks_and_forms
+  # end
+  # def spawn_new_execution
+  # end
   # 
   # 
   # def cannot_find_winner
