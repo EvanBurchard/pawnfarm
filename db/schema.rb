@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100703172056) do
+ActiveRecord::Schema.define(:version => 20100706063849) do
 
   create_table "executions", :force => true do |t|
     t.integer  "scheme_id"
@@ -49,6 +49,13 @@ ActiveRecord::Schema.define(:version => 20100703172056) do
     t.string   "prompt"
     t.string   "target"
     t.string   "target_relationship"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "turk_forms", :force => true do |t|
+    t.string   "url"
+    t.integer  "execution_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

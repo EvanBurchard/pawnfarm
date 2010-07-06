@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Execution do
+  it { should have_many(:turk_forms)}
   it { should belong_to(:scheme) }
   it { should belong_to(:pawn) }
   
@@ -17,7 +18,6 @@ describe Execution do
     @valid_attributes = {
       :scheme_id => 1,
       :pawn_id => 1,
-      :state => "value for state",
       :candidate_a => "value for candidate_a",
       :candidate_b => "value for candidate_b",
       :winner => "value for winner"
@@ -27,4 +27,109 @@ describe Execution do
   it "should create a new instance given valid attributes" do
     Execution.create!(@valid_attributes)
   end
+  
+  it "should run the build_form method" do
+    @execution = Execution.new(@valid_attributes)
+    @execution.should_receive(:build_form)
+    @execution.save
+  end
+  it "should build a turk form" do
+    @execution = Execution.new(@valid_attributes)
+    @execution.save
+    @execution.turk_forms[0].should_not be nil    
+  end
+  it "should have the seeking candidates state" do
+    @execution = Execution.new(@valid_attributes)
+    @execution.save
+    @execution.state.should == "seeking_candidates"    
+  end
+
+  it "should call turk_for_candidates" do
+    @execution = Execution.new(@valid_attributes)
+    @execution.should_receive(:turk_for_candidates)
+    @execution.save    
+  end
+
+
+  describe "when candidates are found" do
+    before(:each) do
+      @execution = Execution.new(@valid_attributes)
+      @execution.save    
+      @execution.candidate_a = "candidate a"
+      @execution.candidate_b = "candidate b"
+    end
+    
+    it "should check for the candidates" do
+      @execution.should_receive(:candidates_found?)
+      @execution.execute! 
+    end
+    it "should call found_candidates when candidate_1 and candidate_2 are defined" do
+      @execution.should_receive(:found_candidates)
+      @execution.execute! 
+    end
+    it "should have 2 forms defined" do
+      @execution.execute! 
+      @execution.turk_forms[0].should_not be nil    
+      @execution.turk_forms[1].should_not be nil    
+    end
+    it "should change the state to candidates_found" do
+      @execution.execute! 
+      @execution.state.should == "seeking_review_of_candidates"
+    end
+    it "should build the review form (for the second turk task)" do
+      @execution.should_receive(:build_review_form)
+      @execution.execute! 
+    end
+    it "should seek candidates" do
+      @execution.should_receive(:turk_for_review)
+      @execution.execute! 
+    end
+    
+  end
+  describe "when a winner is selected" do
+    before(:each) do
+      @execution = Execution.new(@valid_attributes)
+      @execution.save    
+      @execution.candidate_a = "candidate a"
+      @execution.candidate_b = "candidate b"
+      @execution.execute! 
+    end
+    it "should call winner_found?" do
+      @execution.should_receive(:winner_found?)
+      @execution.execute!       
+    end
+    it "should call found_winner" do
+      @execution.should_receive(:found_winner)
+      @execution.execute!       
+    end
+    it "should set winner to one of the candidates" do
+      @execution.stub!(:pawn).and_return(@pawn = mock_model(Pawn, :id => 1))
+      @pawn.stub!(:tweet)
+      @execution.execute!       
+      [@execution.candidate_a, @execution.candidate_b].should include(@execution.winner)
+    end
+    it "should call tweet_winner" do
+      @execution.should_receive(:tweet_winner)
+      @execution.execute!       
+    end
+    it "should call @pawn.tweet" do
+      @execution.stub!(:pawn).and_return(@pawn = mock_model(Pawn, :id => 1))
+      @pawn.should_receive(:tweet)
+      @execution.execute!       
+    end
+    it "should call tweet_it" do
+      @execution.stub!(:pawn).and_return(@pawn = mock_model(Pawn, :id => 1))
+      @pawn.stub!(:tweet)
+      @execution.should_receive(:tweet)       
+      @execution.execute!
+    end
+    it "should have state 'tweeted' " do
+      @execution.stub!(:pawn).and_return(@pawn = mock_model(Pawn, :id => 1))
+      @pawn.stub!(:tweet)
+      @execution.execute!
+      @execution.state.should == "tweeted"           
+    end
+    
+  end
+
 end
