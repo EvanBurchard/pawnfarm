@@ -4,6 +4,10 @@ class Execution < ActiveRecord::Base
   belongs_to :scheme
   belongs_to :pawn
   has_many :turk_forms
+  
+  validates_presence_of :pawn
+  validates_presence_of :scheme
+  
   after_create :build_form
   
   include AASM
