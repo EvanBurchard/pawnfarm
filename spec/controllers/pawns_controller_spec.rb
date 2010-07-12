@@ -117,7 +117,10 @@ describe PawnsController do
       @pawn.stub!(:user_id=).and_return(true)
       @pawn.stub!(:setup_twitter_account).and_return(@twitter_account = mock_model(TwitterAccount, :id => 1))
       @pawn.stub!(:twitter_account).and_return(@twitter_account)
-      @twitter_account.stub!(:authorize_url).and_return("http://api.twitter.com/oauth/authorize?oauth_token=U")
+      @twitter_account.stub!(:authorize_url).and_return("http://api.twitter.com/oauth/authenticate?oauth_token=fake")
+      @twitter_account.stub!(:request_token=)
+      @twitter_account.stub!(:request_secret=)
+      @twitter_account.stub!(:save)
       controller.stub!(:current_user).and_return(@current_user = mock_model(User, :id=>1))
     end
 
@@ -146,7 +149,7 @@ describe PawnsController do
     end
     it "should redirect to twitter" do
       do_create
-      response.should redirect_to("http://api.twitter.com/oauth/authorize?oauth_token=U")
+      response.should redirect_to("http://api.twitter.com/oauth/authenticate?oauth_token=fake")
     end
   end
 
