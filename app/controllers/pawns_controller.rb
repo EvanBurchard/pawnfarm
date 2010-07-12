@@ -60,15 +60,16 @@ class PawnsController < ApplicationController
   end
 
   def authorize_url
-    oauth.set_callback_url("http://pawnfarm.com#{finalize_pawn_path}")  
-    @pawn.twitter_account.request_token = oauth.request_token.token
-    @pawn.twitter_account.request_secret = oauth.request_token.secret
-
+    oauth.set_callback_url("http://pawnfarm.com#{finalize_pawn_path}")      
+    session['rtoken'] = @pawn.twitter_account.request_token = oauth.request_token.token
+    session['rsecret'] = @pawn.twitter_account.request_secret = oauth.request_token.secret
+    @pawn.twitter_account.save
     "http://#{oauth.request_token.authorize_url}"
     
   end
 
   def assign_token_and_secret(oauth_verifier)
+    @pawn = Pawn.find_by_request_token_and_request_secret(session['rtoken'], session['rsecret'])
     oauth.authorize_from_request(@pawn.twitter_account.request_token, @pawn.twitter_account.request_secret, oauth_verifier)
     #profile = Twitter::Base.new(oauth).verify_credentials
     #sign_in(profile)
