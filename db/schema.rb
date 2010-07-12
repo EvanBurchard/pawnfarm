@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(:version => 20100712032747) do
     t.string   "password"
     t.string   "access_key"
     t.string   "access_secret"
+    t.string   "request_token"
+    t.string   "request_secret"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

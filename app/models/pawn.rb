@@ -8,7 +8,7 @@ class Pawn < ActiveRecord::Base
   has_one :twitter_account
     
   def tweet
-    
+    #twitter_account.tweet
   end
   
   def setup_twitter_account

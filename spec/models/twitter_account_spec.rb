@@ -17,6 +17,8 @@ describe TwitterAccount do
   it { should have_db_column(:password).of_type(:string) }
   it { should have_db_column(:access_key).of_type(:string) }
   it { should have_db_column(:access_secret).of_type(:string) }
+  it { should have_db_column(:request_token).of_type(:string) }
+  it { should have_db_column(:request_secret).of_type(:string) }
   
   before(:each) do
     "api.twitter.com/oauth/authorize?oauth_token=b2lcemfpExbSBi2wFc0NiSg3vqeAulCoKaE7vR3qjI"

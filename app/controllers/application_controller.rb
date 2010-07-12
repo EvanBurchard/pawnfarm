@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
 
+  def oauth
+    @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true)
+  end
   
   private
     def current_user_session
@@ -40,5 +43,6 @@ class ApplicationController < ActionController::Base
     def store_location
       session[:return_to] = request.request_uri
     end
+
     
 end

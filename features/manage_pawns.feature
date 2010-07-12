@@ -14,7 +14,6 @@ Feature: Pawn Management
   		 | Twitter password       | secret    |
 		And I press "Create"
 		Then a pawn should exist with name: "new_pawn"
-    And show me the page
     
   Scenario: Pawn index
     Given a pawn exists with name: "pawn 1", description: "this is a pawn", twitter_username: "username", twitter_password: "secret", user_id: 1

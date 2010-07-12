@@ -12,7 +12,9 @@ class CreateTwitterAccounts < ActiveRecord::Migration
       t.string :password
       t.string :access_key
       t.string :access_secret
-
+      t.string :request_token
+      t.string :request_secret
+      
       t.timestamps
     end
   end
