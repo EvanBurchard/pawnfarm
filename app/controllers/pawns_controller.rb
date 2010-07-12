@@ -42,7 +42,7 @@ class PawnsController < ApplicationController
   
   def finalize
     assign_token_and_secret(params[:oauth_verifier])
-    redirect to pawn_path(@pawn)
+    redirect_to pawn_path(@pawn)
   end
   
   private 
