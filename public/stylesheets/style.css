@@ -1,0 +1,6 @@
+body {
+  background-image: url('../images/star_background.gif');
+}
+h1, h2, label, p, ul, li, ol, div {
+  color: white;
+}
