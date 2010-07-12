@@ -9,8 +9,6 @@ describe Pawn do
   it { should have_db_column(:user_id).of_type(:integer).with_options(:null => false) }
   it { should have_db_column(:name).of_type(:string).with_options(:null => false) }
   it { should have_db_column(:description).of_type(:string) }
-  it { should have_db_column(:twitter_username).of_type(:string).with_options(:null => false) }
-  it { should have_db_column(:twitter_password).of_type(:string).with_options(:null => false) }
   it { should have_db_column(:created_at).of_type(:datetime) }
   it { should have_db_column(:updated_at).of_type(:datetime) }
   
@@ -27,4 +25,16 @@ describe Pawn do
   it "should create a new instance given valid attributes" do
     Pawn.create!(@valid_attributes)
   end
+  
+  it "should setup a twitter account after pawn is created" do
+    @pawn = Pawn.new(@valid_attributes)
+    @pawn.should_receive(:setup_twitter_account)
+    @pawn.save
+  end
+  it "should have twitter account with proper name after pawn is created" do
+    @pawn = Pawn.new(@valid_attributes)
+    @pawn.save
+    @pawn.twitter_account.username.should == @pawn.twitter_username
+  end
+  
 end

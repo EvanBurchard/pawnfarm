@@ -36,7 +36,8 @@ Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
   config.gem "authlogic"
   config.gem "rturk"
-  config.gem "aasm"  
+  config.gem "aasm"
+  config.gem "twitter"    
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
