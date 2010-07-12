@@ -32,3 +32,4 @@ config.gem 'rspec-rails', :version => '>= 1.3.2', :lib => false unless File.dire
 config.gem 'shoulda',     :lib => false
 config.gem "factory_girl"
 config.gem "pickle"
+config.gem "fakeweb"

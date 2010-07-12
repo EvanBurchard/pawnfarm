@@ -20,6 +20,12 @@ Webrat.configure do |config|
   config.open_error_files = false # Set to true if you want error pages to pop up in the browser
 end
 
+FakeWeb.allow_net_connect = false
+FakeWeb.register_uri(:get, %r|http:\/\/api.twitter.com\/oauth\/authorize\?oauth_token=\S*|, :body => "Allow PawnFarm access?")
+FakeWeb.register_uri(:post, 'http://api.twitter.com/oauth/request_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
+# FakeWeb.register_uri(:post, 'http://twitter.com/oauth/access_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
+# FakeWeb.register_uri(:get, 'http://twitter.com/account/verify_credentials.json', :response => File.join(RAILS_ROOT, 'features', 'fixtures', 'verify_credentials.json'))
+
 
 # If you set this to false, any error raised from within your app will bubble 
 # up to your step definition and out to cucumber unless you catch it somewhere

@@ -34,14 +34,10 @@ describe TwitterAccount do
       :access_secret => "value for access_secret"
     }
     @twitter_account = TwitterAccount.new(@valid_attributes)
-    @twitter_account.stub!(:generate_authorize_url).and_return(@authorize_url = "api.twitter.com/oauth/authorize?oauth_token=b2lcemfpE")
+    @twitter_account.stub!(:authorize_url).and_return(@authorize_url = "api.twitter.com/oauth/authorize?oauth_token=b2lcemfpE")
   end
 
   it "should create a new instance given valid attributes" do
-    @twitter_account.save
-  end
-  it "should generate_an_authorize_url after it is created" do
-    @twitter_account.should_receive(:generate_authorize_url).and_return("api.twitter.com/oauth/authorize?oauth_token=b2lcemfpE")
     @twitter_account.save
   end
   

@@ -19,8 +19,8 @@ class PawnsController < ApplicationController
   def create
     @pawn = Pawn.new(params[:pawn])
     @pawn.user_id = current_user.id
-    if @pawn.save
-      redirect_to pawn_path(@pawn)
+    if @pawn.save and @pawn.setup_twitter_account
+      redirect_to @pawn.twitter_account.authorize_url
     else
       render :action => 'new'
     end

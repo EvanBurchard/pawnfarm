@@ -6,9 +6,7 @@ class Pawn < ActiveRecord::Base
   validates_presence_of :twitter_username
   validates_presence_of :twitter_password
   has_one :twitter_account
-  
-  after_create :setup_twitter_account
-  
+    
   def tweet
     
   end

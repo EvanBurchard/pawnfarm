@@ -26,14 +26,10 @@ describe Pawn do
     Pawn.create!(@valid_attributes)
   end
   
-  it "should setup a twitter account after pawn is created" do
-    @pawn = Pawn.new(@valid_attributes)
-    @pawn.should_receive(:setup_twitter_account)
-    @pawn.save
-  end
   it "should have twitter account with proper name after pawn is created" do
     @pawn = Pawn.new(@valid_attributes)
     @pawn.save
+    @pawn.setup_twitter_account
     @pawn.twitter_account.username.should == @pawn.twitter_username
   end
   
