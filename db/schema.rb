@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100706063849) do
+ActiveRecord::Schema.define(:version => 20100712032747) do
 
   create_table "executions", :force => true do |t|
     t.integer  "scheme_id"
@@ -56,6 +56,22 @@ ActiveRecord::Schema.define(:version => 20100706063849) do
   create_table "turk_forms", :force => true do |t|
     t.string   "url"
     t.integer  "execution_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "twitter_accounts", :force => true do |t|
+    t.string   "friends"
+    t.string   "followers"
+    t.integer  "friend_count"
+    t.integer  "follower_count"
+    t.datetime "last_tweeted"
+    t.string   "status"
+    t.integer  "pawn_id"
+    t.string   "username"
+    t.string   "password"
+    t.string   "access_key"
+    t.string   "access_secret"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

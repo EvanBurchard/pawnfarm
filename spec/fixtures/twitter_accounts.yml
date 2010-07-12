@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  friends: MyString
+  followers: MyString
+  friend_count: 1
+  follower_count: 1
+  last_tweeted: 2010-07-11 23:27:47
+  status: MyString
+  pawn: 
+  username: MyString
+  password: MyString
+  access_key: MyString
+  access_secret: MyString
+
+two:
+  friends: MyString
+  followers: MyString
+  friend_count: 1
+  follower_count: 1
+  last_tweeted: 2010-07-11 23:27:47
+  status: MyString
+  pawn: 
+  username: MyString
+  password: MyString
+  access_key: MyString
+  access_secret: MyString

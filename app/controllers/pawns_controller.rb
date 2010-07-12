@@ -2,7 +2,7 @@ class PawnsController < ApplicationController
   before_filter :require_user, :except => [:index, :show]
   before_filter :can_edit?, :only => [:destroy, :edit, :update]
   before_filter :is_owner?, :only => [:show]
-    
+
   def index
     @pawns = Pawn.all
   end
