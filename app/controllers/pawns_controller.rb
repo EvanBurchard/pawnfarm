@@ -74,7 +74,7 @@ class PawnsController < ApplicationController
     #profile = Twitter::Base.new(oauth).verify_credentials
     #sign_in(profile)
     @twitter_account = @pawn.twitter_account
-    @twitter_account.acces_key = oauth.access_token.token
+    @twitter_account.access_key = oauth.access_token.token
     @twitter_account.access_secret = oauth.access_token.secret
     @twitter_account.save
   end
