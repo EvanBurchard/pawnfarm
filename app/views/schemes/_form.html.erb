@@ -15,7 +15,7 @@
                           ["self", "followers", "friends"]%> )</span>
 <span id="prompt_text">given the prompt <%= form.text_field :prompt %> and a recent tweet from
 <%= form.text_field :tweet_prompt %>('s   <%= form.select :tweet_prompt_relationship, 
-                          ["self", "followers", "friends"]%> )</span> every <%= form.text_field :frequency %> minutes.</p><br />
+                          ["self", "followers", "friends"]%> )</span> every <%= form.text_field :frequency %> hours.</p><br />
 
 <%= form.label "Select true if you don't want this to happen exactly on schedule:" %><br />
 <%= form.select :random_interval, [true, false] %><br /><br />
