@@ -30,29 +30,39 @@ describe Execution do
   it "should create a new instance given valid attributes" do
     Execution.create!(@valid_attributes)
   end
-  
-  it "should run the build_form method" do
-    @execution = Execution.new(@valid_attributes)
-    @execution.should_receive(:build_form)
-    @execution.save
-  end
-  it "should build a turk form" do
-    @execution = Execution.new(@valid_attributes)
-    @execution.save
-    @execution.turk_forms[0].should_not be nil    
-  end
-  it "should have the seeking candidates state" do
-    @execution = Execution.new(@valid_attributes)
-    @execution.save
-    @execution.state.should == "seeking_candidates"    
-  end
 
-  it "should call turk_for_candidates" do
-    @execution = Execution.new(@valid_attributes)
-    @execution.should_receive(:turk_for_candidates)
-    @execution.save    
-  end
+  describe "for the building form phase" do 
+    before(:each) do 
+      @execution = Execution.new(@valid_attributes)      
+    end
 
+    it "should run the build_form method" do
+      @execution.should_receive(:build_form)
+      @execution.save
+    end
+    it "should build a turk form" do
+      @execution.save
+      @execution.turk_forms[0].should_not be nil    
+    end
+    it "should have some text in the body of the turk form" do
+      @execution.save
+      @execution.turk_forms[0].body.should_not be nil    
+    end
+    it "should run the form body text method" do
+      @execution.should_receive(:form_body_text)
+      @execution.save
+    end
+    it "should have the seeking candidates state" do
+      @execution.save
+      @execution.state.should == "seeking_candidates"    
+    end
+
+    it "should call turk_for_candidates" do
+      @execution = Execution.new(@valid_attributes)
+      @execution.should_receive(:turk_for_candidates)
+      @execution.save    
+    end
+  end
 
   describe "when candidates are found" do
     before(:each) do

@@ -43,8 +43,7 @@ class Execution < ActiveRecord::Base
   end
   
   def build_form
-    # pawn.set
-    @turk_form = TurkForm.new(:execution => self)
+    @turk_form = TurkForm.new(:execution => self, :body => form_body_text)
     @turk_form.save
     seek_candidates
     save
@@ -87,6 +86,10 @@ class Execution < ActiveRecord::Base
   def tweet_winner
     tweet
     pawn.tweet
+  end
+
+  def form_body_text
+    "Some text"
   end
 
   # def cleanup_and_replicate
