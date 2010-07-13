@@ -47,6 +47,7 @@ class Execution < ActiveRecord::Base
     @turk_form = TurkForm.new(:execution => self)
     @turk_form.save
     seek_candidates
+    save
   end
 
   def found_candidates
