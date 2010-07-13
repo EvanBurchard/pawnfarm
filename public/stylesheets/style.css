@@ -4,3 +4,9 @@ body {
 h1, h2, label, p, ul, li, ol, div {
   color: white;
 }
+#main_nav span {
+  font-size:100px 
+}
+a {
+  background-color: black;
+}

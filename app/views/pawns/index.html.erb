@@ -1,4 +1,5 @@
 <h2>Pawns</h2>
+<%= link_to "New Pawn", new_pawn_path %>
 <ul>
   <% for pawn in @pawns %>
   <li><%= link_to pawn.name, pawn_path(pawn) %></li>
