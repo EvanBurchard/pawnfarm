@@ -24,8 +24,9 @@ Feature: Scheme Management
   Scenario: Scheme show
     Given a tweet_scheme exists with title: "scheme 1", description: "this is a scheme", user_id: 1
     When I go to the show page for that tweet_scheme
-    Then I should see "scheme 1" within "h1"
-    Then I should see "this is a scheme" within "p"
+    And show me the page
+    Then I should see "scheme 1"
+    And I should see "this is a scheme" within "p"
      
   Scenario: Scheme editing
     Given a tweet_scheme exists with title: "scheme 1", description: "this is a scheme", user_id: 1

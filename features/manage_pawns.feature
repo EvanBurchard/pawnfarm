@@ -25,8 +25,8 @@ Feature: Pawn Management
   Scenario: Pawn show
     Given a pawn exists with name: "pawn 1", description: "this is a pawn", twitter_username: "username", twitter_password: "secret", user_id: 1
     When I go to the show page for that pawn
-    Then I should see "pawn 1" within "h1"
-    Then I should see "this is a pawn" within "p"
+    Then I should see "pawn 1"
+    And I should see "this is a pawn" within "p"
      
   Scenario: Pawn editing
     Given a pawn exists with name: "pawn 1", description: "this is a pawn", twitter_username: "username", twitter_password: "secret", user_id: 1

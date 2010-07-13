@@ -2,6 +2,9 @@
 
 <% form_for @pawn do |f|%>
 	<%= f.error_messages %>
+	<%= f.label :activate? %>
+  <%= f.check_box :active, :checked => true %><br/>
+  <br/>
 	<%= render :partial => f %>
 	<%= f.submit "Create"%>
 <% end %>
