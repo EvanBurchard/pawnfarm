@@ -54,7 +54,7 @@ class Execution < ActiveRecord::Base
       if scheme.prompt.present?
         scheme.prompt + "#{scheme.get_status_for_tweet_prompt}  Respond in 120 characters."      
       else
-        "#{scheme.get_status_for_tweet_prompt}  Respond in 120 characters."
+        "#{scheme.get_status_for_tweet_prompt}"
       end
     else
       if scheme.prompt.present?
