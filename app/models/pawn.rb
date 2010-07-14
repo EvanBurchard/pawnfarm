@@ -7,7 +7,7 @@ class Pawn < ActiveRecord::Base
   validates_presence_of :twitter_password
   has_one :twitter_account
   
-  after_create :create_executions!
+  # after_create :create_executions!
   
   def self.execute!
     @pawns = Pawn.find_all_by_active(true)
@@ -21,14 +21,14 @@ class Pawn < ActiveRecord::Base
     executions.each { |e| e.execute! }
   end
   
-  # def create_executions!
-  #   schemes.each do |s|
-  #     @executions = s.executions
-  #     unless (@executions.map {|e| e.pawn }).include?(self) 
-  #       Execution.create(:scheme => s, :pawn => self)
-  #     end
-  #   end
-  # end
+  def create_executions!
+    schemes.each do |s|
+      @executions = s.executions
+      unless (@executions.map {|e| e.pawn }).include?(self) 
+        Execution.create(:scheme => s, :pawn => self)
+      end
+    end
+  end
   
   def tweet
     #twitter_account.tweet
