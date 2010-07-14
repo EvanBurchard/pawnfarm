@@ -8,7 +8,7 @@ class Execution < ActiveRecord::Base
   validates_presence_of :pawn
   validates_presence_of :scheme
   
-  # after_create :build_form
+  after_create :build_form
   
   include AASM
   aasm_column :state
