@@ -49,6 +49,22 @@ class Execution < ActiveRecord::Base
     save
   end
 
+  def form_body_text
+    if scheme.tweet_prompt
+      if scheme.prompt
+        scheme.prompt + "#{scheme.get_status_for_tweet_prompt}  Respond in 120 characters."      
+      else
+        "#{scheme.get_status_for_tweet_prompt}  Respond in 120 characters."
+      end
+    else
+      if scheme.prompt
+        scheme.prompt
+      else
+        "Create a message 120 characters long."
+      end
+    end
+  end
+  
   def found_candidates
     build_review_form
     seek_candidate_review
@@ -86,10 +102,6 @@ class Execution < ActiveRecord::Base
   def tweet_winner
     tweet
     pawn.tweet
-  end
-
-  def form_body_text
-    scheme.prompt + "#{scheme.get_status_for_tweet_prompt}  Respond in 120 characters."      
   end
 
   # def cleanup_and_replicate
