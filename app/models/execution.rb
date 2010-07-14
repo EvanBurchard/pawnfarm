@@ -42,7 +42,7 @@ class Execution < ActiveRecord::Base
     end
   end
   
-  def build_form
+  def build_form 
     @turk_form = TurkForm.new(:execution => self, :body => form_body_text)
     @turk_form.save
     seek_candidates
@@ -89,7 +89,7 @@ class Execution < ActiveRecord::Base
   end
 
   def form_body_text
-    "Some text"
+    scheme.prompt + "#{scheme.get_status_for_tweet_prompt}  Respond in 120 characters."      
   end
 
   # def cleanup_and_replicate

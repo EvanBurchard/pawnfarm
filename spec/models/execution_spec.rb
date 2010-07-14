@@ -19,48 +19,57 @@ describe Execution do
     
   before(:each) do
     @valid_attributes = {
-      :scheme => mock_model(Scheme, :id => 1),
+      :scheme => (@scheme = mock_model(Scheme, :id => 1)),
       :pawn => mock_model(Pawn, :id => 1),
       :candidate_a => "value for candidate_a",
       :candidate_b => "value for candidate_b",
       :winner => "value for winner"
     }
+    @scheme.stub!(:get_status_for_tweet_prompt).and_return("status message")
   end
 
   it "should create a new instance given valid attributes" do
     Execution.create!(@valid_attributes)
   end
-
+  
   describe "for the building form phase" do 
-    before(:each) do 
-      @execution = Execution.new(@valid_attributes)      
-    end
+    describe "for an execution of an @ scheme" do
+      before(:each) do 
+        @valid_attributes[:scheme] = @scheme = mock_model(Scheme, :id => 1, :type => "AtScheme")
+        @scheme.stub!(:get_status_for_tweet_prompt).and_return("status message")
+        @execution = Execution.new(@valid_attributes)      
+      end
 
-    it "should run the build_form method" do
-      @execution.should_receive(:build_form)
-      @execution.save
-    end
-    it "should build a turk form" do
-      @execution.save
-      @execution.turk_forms[0].should_not be nil    
-    end
-    it "should have some text in the body of the turk form" do
-      @execution.save
-      @execution.turk_forms[0].body.should_not be nil    
-    end
-    it "should run the form body text method" do
-      @execution.should_receive(:form_body_text)
-      @execution.save
-    end
-    it "should have the seeking candidates state" do
-      @execution.save
-      @execution.state.should == "seeking_candidates"    
-    end
+      it "should run the build_form method" do
+        @execution.should_receive(:build_form)
+        @execution.save
+      end
+      it "should build a turk form" do
+        @execution.save
+        @execution.turk_forms[0].should_not be nil    
+      end
+      it "should have some text in the body of the turk form" do
+        @execution.save
+        @execution.turk_forms[0].body.should_not be nil    
+      end
+      it "should run the form body text method" do
+        @execution.should_receive(:form_body_text)
+        @execution.save
+      end
+      it "should have the seeking candidates state" do
+        @execution.save
+        @execution.state.should == "seeking_candidates"    
+      end
+      it "should receive get status for target" do
+        @scheme.should_receive(:get_status_for_tweet_prompt)
+        @execution.save
+      end
 
-    it "should call turk_for_candidates" do
-      @execution = Execution.new(@valid_attributes)
-      @execution.should_receive(:turk_for_candidates)
-      @execution.save    
+      it "should call turk_for_candidates" do
+        @execution = Execution.new(@valid_attributes)
+        @execution.should_receive(:turk_for_candidates)
+        @execution.save    
+      end
     end
   end
 

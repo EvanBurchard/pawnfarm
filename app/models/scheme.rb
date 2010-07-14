@@ -6,6 +6,31 @@ class Scheme < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :type  
 
+  def get_status_for_tweet_prompt
+    if tweet_prompt_relationship == "followers"
+      @twitter_login_or_id = random_follower
+    elsif tweet_prompt_relationship == "friends"      
+      @twitter_login_or_id = random_friend
+    else
+      @twitter_login_or_id = tweet_prompt    
+    end
+    @message = get_status(@twitter_login_or_id)
+    "Your friend has just said #{@message}"
+  end
+
+  def get_status(twitter_login_or_id)
+    Twitter.user(twitter_login_or_id).status.text
+  end
+  
+  def random_friend
+    friend_ids = Twitter.friend_ids(tweet_prompt)
+    friend_ids[rand(follower_ids.size)]
+  end
+  def random_follower
+    follower_ids = Twitter.follower_ids(tweet_prompt)
+    follower_ids[rand(follower_ids.size)]
+  end
+
   def self.select_options
     ["TweetScheme", "RtScheme", "AtScheme"]
   end
