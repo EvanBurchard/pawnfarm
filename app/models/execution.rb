@@ -8,7 +8,7 @@ class Execution < ActiveRecord::Base
   validates_presence_of :pawn
   validates_presence_of :scheme
   
-  after_create :build_form
+  # after_create :build_form
   
   include AASM
   aasm_column :state
@@ -43,7 +43,6 @@ class Execution < ActiveRecord::Base
   end
   
   def build_form
-    puts "ok till here" 
     @turk_form = TurkForm.new(:execution => self, :body => form_body_text)
     @turk_form.save
     seek_candidates
