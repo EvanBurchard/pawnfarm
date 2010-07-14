@@ -9,17 +9,21 @@
     <%= stylesheet_link_tag 'style' %>
   </head>
   <body>
-    <% if current_user %>
-      <div id="main_nav">
-        <span><%= link_to "Pawns", :pawns %> </span>
-        <span><%= link_to "Schemes", :schemes %> </span>
-        <span><%= link_to "Logout", :logout %> </span>
-      </div>
-    <% else%>
-      <div>
-        <h1><%= link_to "Login", :login %></h1>
-      </div>
+  <% if controller_name == "turk_forms" %>
+      <%= yield %>
+  <% else %>
+      <% if current_user %>
+        <div id="main_nav">
+          <span><%= link_to "Pawns", :pawns %> </span>
+          <span><%= link_to "Schemes", :schemes %> </span>
+          <span><%= link_to "Logout", :logout %> </span>
+        </div>
+      <% else%>
+        <div>
+          <h1><%= link_to "Login", :login %></h1>
+        </div>
+      <% end %>
+      <%= yield %>
     <% end %>
-    <%= yield %>
-  </body>
+    </body>
 </html>
