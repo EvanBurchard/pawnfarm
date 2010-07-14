@@ -20,10 +20,10 @@ class Pawn < ActiveRecord::Base
   end
   
   def create_executions!
+    puts "got here"
     schemes.each do |s|
       @executions = s.executions
       unless (@executions.map {|e| e.pawn }).include?(self) 
-        puts "got here"
         Execution.create(:scheme => s, :pawn => self)
       end
     end
