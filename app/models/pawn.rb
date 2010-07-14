@@ -1,11 +1,11 @@
 class Pawn < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :schemes
-  has_many :executions
+  has_many :executions, :dependent => :destroy
   validates_presence_of :name
   validates_presence_of :twitter_username
   validates_presence_of :twitter_password
-  has_one :twitter_account
+  has_one :twitter_account, :dependent => :destroy
   
   
   def self.execute!

@@ -3,7 +3,7 @@
 class Execution < ActiveRecord::Base
   belongs_to :scheme
   belongs_to :pawn
-  has_many :turk_forms
+  has_many :turk_forms, :dependent => :destroy
   
   validates_presence_of :pawn
   validates_presence_of :scheme

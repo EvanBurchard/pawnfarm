@@ -1,7 +1,7 @@
 class Scheme < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :pawns
-  has_many :executions
+  has_many :executions, :dependent => :destroy
   validates_presence_of :user_id
   validates_presence_of :title
   validates_presence_of :type  
