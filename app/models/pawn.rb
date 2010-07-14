@@ -22,7 +22,7 @@ class Pawn < ActiveRecord::Base
   def create_executions!
     schemes.each do |s|
       @executions = s.executions
-      unless @executions.map {|e| e.pawn }.include?(self) 
+      unless (@executions.map {|e| e.pawn }).include?(self) 
         Execution.create(:scheme => s, :pawn => self)
       end
     end

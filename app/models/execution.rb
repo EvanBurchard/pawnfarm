@@ -43,6 +43,7 @@ class Execution < ActiveRecord::Base
   end
   
   def build_form 
+    puts "got here"
     @turk_form = TurkForm.new(:execution => self, :body => form_body_text)
     @turk_form.save
     seek_candidates
