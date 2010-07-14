@@ -34,7 +34,7 @@
   function lengthCheck()
   {
     if (document.getElementById('tweet').value.length > 120) {
-      alert("Must be less than 140 characters! Currently " + document.getElementById('tweet').value.length);
+      alert("Must be less than 120 characters! Currently " + document.getElementById('tweet').value.length);
       return false;
     }
   }
@@ -46,7 +46,7 @@
 <body>
 <form id="mturk_form" method="post" action="http://www.mturk.com/mturk/externalSubmit" onSubmit="return lengthCheck()">
 <input type="hidden" id="assignmentId" name="assignmentId" value="" />
-<h1>Help me write a clever twitter update</h1>
+<h1>Help me write a twitter update</h1>
 
 <p />
 <h2>Criteria</h2>
@@ -55,10 +55,10 @@
   <li>MUST BE LESS THAN 120 CHARACTERS</li>
   <li>Could be about an interesting topic or current event</li>
   <li>Could also make up something about what I'm currently doing</li>
-
   <li>Should fool people into thinking I am clever and witty</li>
+  <%= yield %>
 </ul>
-<%= yield %>
+
 <textarea rows="4" cols="40" tabindex="1" autocomplete="off" name="tweet" id="tweet"></textarea>
 
 <p/>
