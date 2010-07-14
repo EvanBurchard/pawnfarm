@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
-  it { should have_many(:pawns) }
-  it { should have_many(:schemes) }
+  it { should have_many(:pawns).dependent(:destroy) }
+  it { should have_many(:schemes).dependent(:destroy) }
   
   it { should have_db_column(:login).of_type(:string).with_options(:null => false) }
   it { should have_db_column(:email).of_type(:string).with_options(:null => false) }

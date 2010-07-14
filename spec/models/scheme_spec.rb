@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Scheme do
   it { should have_and_belong_to_many(:pawns) }
-  it { should have_many(:executions) }
+  it { should have_many(:executions).dependent(:destroy) }
   it { should belong_to(:user) }
 
   # it { should validate_inclusion_of(:type, :in => %w(rt_scheme, at_scheme, tweet_scheme  )}

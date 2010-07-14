@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Pawn do
   it { should belong_to(:user) }
-  it { should have_many(:executions) }
-  it { should have_one(:twitter_account) }
+  it { should have_many(:executions).dependent(:destroy) }
+  it { should have_one(:twitter_account).dependent(:destroy) }
   it { should have_and_belong_to_many(:schemes) }
   it { should validate_presence_of(:name) }
   it { should have_db_column(:user_id).of_type(:integer).with_options(:null => false) }

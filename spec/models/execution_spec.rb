@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Execution do
-  it { should have_many(:turk_forms)}
+  it { should have_many(:turk_forms).dependent(:destroy)}
   it { should belong_to(:scheme) }
   it { should belong_to(:pawn) }
   
