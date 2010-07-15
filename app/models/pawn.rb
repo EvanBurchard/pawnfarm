@@ -7,16 +7,17 @@ class Pawn < ActiveRecord::Base
   validates_presence_of :twitter_password
   has_one :twitter_account, :dependent => :destroy
   
+  after_create :execute!
   
   def self.execute!
     @pawns = Pawn.find_all_by_active(true)
     @pawns.each do |p| 
-      p.create_executions!
       p.execute! 
     end
   end 
 
   def execute!
+    create_executions!
     executions.each { |e| e.execute! }
   end
   
