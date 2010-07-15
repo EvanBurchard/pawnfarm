@@ -51,17 +51,7 @@ class Execution < ActiveRecord::Base
 
   def form_body_text
     if scheme.tweet_prompt.present?
-      if scheme.prompt.present?
-        scheme.prompt + "#{scheme.get_status_for_tweet_prompt}  Respond in 120 characters."      
-      else
         "#{scheme.get_status_for_tweet_prompt}"
-      end
-    else
-      if scheme.prompt.present?
-        scheme.prompt
-      else
-        "Create a message 120 characters long."
-      end
     end
   end
   

@@ -88,7 +88,7 @@ describe Execution do
         end
         it "should have some text in the body of the turk form" do
           @execution.save
-          @execution.turk_forms[0].body.should_not be nil    
+          @execution.turk_forms[0].body.should be nil    
         end
         it "should run the form body text method" do
           @execution.should_receive(:form_body_text)
