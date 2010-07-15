@@ -5,8 +5,8 @@ class Execution < ActiveRecord::Base
   belongs_to :pawn
   has_many :turk_forms, :dependent => :destroy
   
-  validates_presence_of :pawn
-  validates_presence_of :scheme
+  validates_presence_of :pawn_id
+  validates_presence_of :scheme_id
   
   after_create :build_form
   

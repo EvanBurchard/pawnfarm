@@ -5,8 +5,8 @@ describe Execution do
   it { should belong_to(:scheme) }
   it { should belong_to(:pawn) }
   
-  it { should validate_presence_of(:scheme) }
-  it { should validate_presence_of(:pawn) }
+  it { should validate_presence_of(:scheme_id) }
+  it { should validate_presence_of(:pawn_id) }
   
   it { should have_db_column(:state).of_type(:string) }
   it { should have_db_column(:candidate_a).of_type(:string) }
