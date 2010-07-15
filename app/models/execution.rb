@@ -28,7 +28,7 @@ class Execution < ActiveRecord::Base
     transitions :to => :seeking_review_of_candidates, :from => :seeking_candidates  
   end
   aasm_event :tweet do
-    transitions :to => :tweeted, :from => [:seeking_review_of_candidates, :retweeting]
+    transitions :to => :tweeted, :from => [:seeking_review_of_candidates, :retweeting]#, :guard => recently_tweeted?
   end
   
   def execute!
@@ -108,6 +108,9 @@ class Execution < ActiveRecord::Base
     pawn.tweet
   end
 
+  # def recently_tweeted?
+  #   Time.now < Execution.find_all_by_pawn_and_scheme_and_tweeted_at + scheme.tweet_frequency.hours  
+  # end
   # def cleanup_and_replicate
   #   clear_tasks_and_forms
   #   spawn_new_execution
@@ -126,9 +129,6 @@ class Execution < ActiveRecord::Base
   #   failure
   # end
   # 
-  # def pawn_recently_tweeted?
-  #   Time.now < pawn.last_tweet_time + pawn.tweet_frequency.hours  
-  # end
   # aasm_event :failure do
   #   transitions :to => :building_form
   # end
