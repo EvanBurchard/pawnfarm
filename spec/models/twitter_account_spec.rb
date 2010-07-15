@@ -46,20 +46,6 @@ describe TwitterAccount do
     before(:each) do
       @twitter_account.save
     end
-    it "should return a twitter oauth object when oauth is called" do
-      TwitterAccount.oauth.class.should == Twitter::OAuth
-    end
-    it "should return the same twitter oauth object if already assigned" do
-      @first_oauth = TwitterAccount.oauth
-      TwitterAccount.oauth.should equal @first_oauth
-    end
-    it "should return the same twitter oauth object if already assigned" do
-      @first_oauth = TwitterAccount.oauth
-      TwitterAccount.oauth.should equal @first_oauth
-    end
-    it "should return an array when authorize_from_access is called" do
-      @twitter_account.authorize_from_access.class.should == Array      
-    end
     it "should return a twitter base object when set_client is called" do
       @twitter_account.set_client.class.should == Twitter::Base      
     end

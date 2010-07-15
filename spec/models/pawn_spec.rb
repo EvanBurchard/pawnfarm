@@ -38,6 +38,11 @@ describe Pawn do
     before(:each) do 
       @pawn = Pawn.create!(@valid_attributes)
       @pawn.setup_twitter_account
+      @pawn.stub!(:set_client).and_return(@client)
+      @client.stub!(:retweet)
+      @client.stub!(:user).and_return(@twitter_user)
+      @twitter_user.stub!(:status).and_return(@status)
+      @status.stub!(:id)      
     end
     it "should be free of errors" do
       @pawn.retweet("twitter_name")    
@@ -46,10 +51,6 @@ describe Pawn do
       @pawn.should_receive(:set_client)
       @pawn.retweet("twitter_name")
     end
-    it "should call TwitterAccount to set the client" do
-      @pawn.twitter_account.should_receive(:set_client)
-      @pawn.retweet("twitter_name")
-    end    
   end
   
   describe "execution" do 

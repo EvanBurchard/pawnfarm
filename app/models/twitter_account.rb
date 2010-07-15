@@ -4,14 +4,10 @@ class TwitterAccount < ActiveRecord::Base
   validates_presence_of :username
   validates_presence_of :password
   
-  def self.oauth
-    @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true)
-  end
-  def authorize_from_access
-    TwitterAccount.oauth.authorize_from_access(access_key, access_secret)
-  end
   def set_client
-    Twitter::Base.new(authorize_from_access)    
+    @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true)
+    @oauth.authorize_from_access(access_key, access_secret)
+    Twitter::Base.new(@oauth)    
   end
   
 end

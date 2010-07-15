@@ -36,7 +36,7 @@ class Pawn < ActiveRecord::Base
   
   def retweet(user_to_retweet)
     client = set_client
-    # client.retweet(user_to_retweet.status.id)
+    client.retweet((client.user(user_to_retweet)).status.id)
   end
   
   def set_client
