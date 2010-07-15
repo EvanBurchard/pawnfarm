@@ -20,7 +20,7 @@ describe Execution do
   before(:each) do
     @valid_attributes = {
       :scheme => (@scheme = mock_model(Scheme, :id => 1, :tweet_prompt => nil, :prompt => nil)),
-      :pawn => mock_model(Pawn, :id => 1),
+      :pawn => (@pawn = mock_model(Pawn, :id => 1)),
       :candidate_a => "value for candidate_a",
       :candidate_b => "value for candidate_b",
       :winner => "value for winner"
@@ -30,6 +30,39 @@ describe Execution do
 
   it "should create a new instance given valid attributes" do
     Execution.create!(@valid_attributes)
+  end
+  
+  describe "for the exection of a RtScheme" do
+    before(:each) do 
+      @valid_attributes[:scheme] = @scheme = mock_model(Scheme, :id => 1, :type => "RtScheme", :tweet_prompt => "a_user")
+      @valid_attributes[:state] = "retweeting"
+      @execution = Execution.new(@valid_attributes)      
+      @pawn.stub!(:retweet)
+    end
+    it "should retweet" do 
+      @pawn.should_receive(:retweet)
+      @execution.save
+    end
+    it "should not run the build form method" do
+      @execution.should_not_receive(:build_form)    
+      @execution.save
+    end
+    it "should run the tweet method" do
+      @execution.should_receive(:tweet)    
+      @execution.save
+    end
+    it "should build not a turk form" do
+      @execution.save
+      @execution.turk_forms[0].should be nil    
+    end
+    it "should not run the form body text method" do
+      @execution.should_not_receive(:form_body_text)
+      @execution.save
+    end
+    it "tweeted state" do
+      @execution.save
+      @execution.state.should == "tweeted"    
+    end
   end
   
   describe "for the building form phase" do 

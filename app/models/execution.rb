@@ -8,16 +8,17 @@ class Execution < ActiveRecord::Base
   validates_presence_of :pawn_id
   validates_presence_of :scheme_id
   
-  after_create :build_form
+  after_create :build_form_if_needed
   
   include AASM
   aasm_column :state
   aasm_initial_state :building_form
-  
+
+  aasm_state :retweeting
   aasm_state :building_form
   aasm_state :seeking_candidates, :enter => :turk_for_candidates
   aasm_state :seeking_review_of_candidates, :enter => :turk_for_review
-  aasm_state :tweeted#, :enter => :cleanup_and_replicate
+  aasm_state :tweeted
 
   aasm_event :seek_candidates do
     transitions :to => :seeking_candidates, :from => :building_form
@@ -27,7 +28,7 @@ class Execution < ActiveRecord::Base
     transitions :to => :seeking_review_of_candidates, :from => :seeking_candidates  
   end
   aasm_event :tweet do
-    transitions :to => :tweeted, :from => :seeking_review_of_candidates
+    transitions :to => :tweeted, :from => [:seeking_review_of_candidates, :retweeting]
   end
   
   def execute!
@@ -39,6 +40,19 @@ class Execution < ActiveRecord::Base
       if winner_found?
         found_winner
       end
+    end
+  end
+  
+  def retweet
+    pawn.retweet(scheme.tweet_prompt)
+    tweet
+  end
+  
+  def build_form_if_needed
+    if scheme.type == "RtScheme"
+      retweet
+    else
+      build_form
     end
   end
   

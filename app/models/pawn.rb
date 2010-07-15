@@ -34,6 +34,16 @@ class Pawn < ActiveRecord::Base
     #twitter_account.tweet
   end
   
+  def retweet(user_to_retweet)
+    client = set_client
+    # client.retweet(user_to_retweet.status.id)
+  end
+  
+  def set_client
+    twitter_account.set_client
+  end
+  
+  
   def setup_twitter_account
     TwitterAccount.create!(:username => twitter_username, :password => twitter_password, :pawn_id => self.id)
   end

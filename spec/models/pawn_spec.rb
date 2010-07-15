@@ -26,13 +26,32 @@ describe Pawn do
   it "should create a new instance given valid attributes" do
     Pawn.create!(@valid_attributes)
   end
-  
+
   it "should have twitter account with proper name after pawn is created" do
     @pawn = Pawn.new(@valid_attributes)
     @pawn.save
     @pawn.setup_twitter_account
     @pawn.twitter_account.username.should == @pawn.twitter_username
   end
+
+  describe "when retweeting" do
+    before(:each) do 
+      @pawn = Pawn.create!(@valid_attributes)
+      @pawn.setup_twitter_account
+    end
+    it "should be free of errors" do
+      @pawn.retweet("twitter_name")    
+    end
+    it "should call for the client to be reset" do
+      @pawn.should_receive(:set_client)
+      @pawn.retweet("twitter_name")
+    end
+    it "should call TwitterAccount to set the client" do
+      @pawn.twitter_account.should_receive(:set_client)
+      @pawn.retweet("twitter_name")
+    end    
+  end
+  
   describe "execution" do 
     before(:each) do
       @valid_attributes[:active] = true
