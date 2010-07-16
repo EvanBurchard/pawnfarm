@@ -28,7 +28,7 @@ class Execution < ActiveRecord::Base
     transitions :to => :seeking_review_of_candidates, :from => :seeking_candidates  
   end
   aasm_event :tweet do
-    transitions :to => :tweeted, :from => [:seeking_review_of_candidates, :retweeting]#, :guard => recently_tweeted?
+    transitions :to => :tweeted, :from => [:seeking_review_of_candidates, :retweeting], :guard => :time_to_tweet?
   end
   
   def execute!
@@ -46,6 +46,9 @@ class Execution < ActiveRecord::Base
   def retweet
     pawn.retweet(scheme.tweet_prompt)
     tweet
+    if state == "tweeted"
+      update_attribute(:tweeted_at, Time.now)
+    end
   end
   
   def build_form_if_needed
@@ -104,13 +107,26 @@ class Execution < ActiveRecord::Base
   end
   
   def tweet_winner
+    update_attribute(:tweeted_at, Time.now)
     tweet
     pawn.tweet
   end
 
-  # def recently_tweeted?
-  #   Time.now < Execution.find_all_by_pawn_and_scheme_and_tweeted_at + scheme.tweet_frequency.hours  
-  # end
+  def time_to_tweet?
+    Time.now <= when_to_tweet
+  end
+  
+  def when_to_tweet
+    @executions = Execution.find_all_by_pawn_id_and_scheme_id(pawn.id, scheme.id)
+    @executions.map {|e| @executions.delete(e) if e.tweeted_at.blank?}
+    if @executions.blank?
+      Time.now
+    else
+      @executions.inject(Time.now) do |time, e|
+        (time < (e.tweeted_at + scheme.tweet_frequency.hours)) ? time : e.tweeted_at + scheme.tweet_frequency.hours
+      end
+    end
+  end
   # def cleanup_and_replicate
   #   clear_tasks_and_forms
   #   spawn_new_execution

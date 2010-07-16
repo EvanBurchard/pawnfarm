@@ -31,7 +31,7 @@ class Pawn < ActiveRecord::Base
   end
   
   def tweet
-    #twitter_account.tweet
+
   end
   
   def retweet(user_to_retweet)

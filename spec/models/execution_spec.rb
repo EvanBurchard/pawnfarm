@@ -7,7 +7,8 @@ describe Execution do
   
   it { should validate_presence_of(:scheme_id) }
   it { should validate_presence_of(:pawn_id) }
-  
+
+  it { should have_db_column(:tweeted_at).of_type(:datetime) }
   it { should have_db_column(:state).of_type(:string) }
   it { should have_db_column(:candidate_a).of_type(:string) }
   it { should have_db_column(:candidate_b).of_type(:string) }
@@ -38,6 +39,7 @@ describe Execution do
       @valid_attributes[:state] = "retweeting"
       @execution = Execution.new(@valid_attributes)      
       @pawn.stub!(:retweet)
+      @execution.scheme.stub!(:tweet_frequency).and_return(1)      
     end
     it "should retweet" do 
       @pawn.should_receive(:retweet)
@@ -63,6 +65,58 @@ describe Execution do
       @execution.save
       @execution.state.should == "tweeted"    
     end
+
+    it "should check if there's been a recent tweet by the same execution type" do 
+      @execution.should_receive(:time_to_tweet?)
+      @execution.save
+    end
+    it "should call when to tweet" do 
+      @execution.should_receive(:when_to_tweet).and_return(Time.now)
+      @execution.save
+    end  
+    it "should set the tweeted_at to Time.now" do
+      Timecop.freeze(Date.today) do
+        @execution.save
+        @execution.tweeted_at.should == Time.now
+      end
+    end
+
+    describe "if there's been a recent tweet by the same execution type" do 
+      Timecop.freeze(Date.today) do
+        before(:each) do
+          @valid_attributes = {
+            :scheme => (@scheme = mock_model(Scheme, :id => 1, :tweet_prompt => nil, :prompt => nil)),
+            :pawn => (@pawn = mock_model(Pawn, :id => 1)),
+            :candidate_a => "value for candidate_a",
+            :candidate_b => "value for candidate_b",
+            :winner => "value for winner"
+          }
+          @scheme.stub!(:tweet_frequency).and_return(1)
+          @execution.scheme.stub!(:tweet_frequency).and_return(1)      
+        end
+        it "should call time to tweet" do 
+          @execution.should_receive(:time_to_tweet?)
+          @execution.save
+        end  
+        it "should call when to tweet" do 
+          @execution.should_receive(:when_to_tweet).and_return(Time.now + 3.hours)
+          @execution.save
+        end  
+        it "should not set the tweeted_at to Time.now" do
+          @execution.stub!(:time_to_tweet?).and_return(false)
+          @execution.save
+          @execution.tweeted_at.should be nil
+        end
+        
+        it "should have a retweeting state" do
+          @execution.stub!(:time_to_tweet?).and_return(false)
+          @execution.save
+          @execution.state.should == "retweeting"    
+        end
+        
+      end
+    end    
+    
   end
   
   describe "for the building form phase" do 
@@ -187,6 +241,7 @@ describe Execution do
       @execution.candidate_a = "candidate a"
       @execution.candidate_b = "candidate b"
       @execution.execute! 
+      @execution.scheme.stub!(:tweet_frequency).and_return(1)      
     end
     it "should call winner_found?" do
       @execution.should_receive(:winner_found?)

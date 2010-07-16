@@ -33,3 +33,4 @@ config.gem 'shoulda',     :lib => false
 config.gem "factory_girl"
 config.gem "pickle"
 config.gem "fakeweb"
+config.gem "timecop"
