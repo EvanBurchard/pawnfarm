@@ -1,5 +1,5 @@
-<% if @body.present? %>
-  <li><%=h "Your friend has just said #{@body}" %></li>
+<% if @tweet_prompt.present? %>
+  <li><%=h "Your friend has just said #{@tweet_prompt}" %></li>
 <% end %>
 <% if @prompt.present? %>
   <li><%=h @prompt %></li>

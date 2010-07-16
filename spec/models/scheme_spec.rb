@@ -25,7 +25,30 @@ describe Scheme do
   it { should have_db_column(:target_relationship) }        
 
 
-
+  describe "an rt scheme" do
+    before(:each) do
+      @valid_attributes = {:title => "scheme title", 
+                           :user => (@user = mock_model(User, :id => 1))}
+      @scheme = RtScheme.new(@valid_attributes)
+      @pawn = mock_model(Pawn, :id => 1)
+    end
+    it "should create a new instance given valid attributes" do
+      @scheme.save
+    end
+    it "should create a new execution if requested" do
+      @scheme.save
+      Execution.should_receive(:create)
+      @scheme.create_executions!(@pawn)      
+    end
+    it "should not call too many executions" do
+      @scheme.save
+      @scheme.should_not_receive(:too_many_executions?)
+      @scheme.create_executions!(@pawn)              
+    end
+    it "should be an RtScheme" do
+      @scheme.type.should == "RtScheme"
+    end
+  end
   describe "an at scheme" do
     describe "without a friend/follower tweet_prompt_relationship" do
       before(:each) do
@@ -61,6 +84,23 @@ describe Scheme do
                              :tweet_prompt_relationship => "friends"}
         @scheme = AtScheme.new(@valid_attributes)
         @scheme.stub!(:random_friend).and_return("some_friend_account")        
+      end
+      it "should create a new execution if requested" do
+        @scheme.save
+        Execution.should_receive(:create)
+        @scheme.create_executions!(@pawn)      
+      end
+      it "should call too many executions" do
+        @scheme.save
+        @scheme.should_receive(:too_many_executions?)
+        @scheme.create_executions!(@pawn)              
+      end
+
+      it "should not create a new execution if there are too many executions already" do
+        @scheme.save
+        @scheme.stub!(:too_many_executions?).and_return(true)
+        Execution.should_not_receive(:create)
+        @scheme.create_executions!(@pawn)      
       end
 
       it "should create a new instance given valid attributes" do

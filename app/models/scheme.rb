@@ -31,14 +31,19 @@ class Scheme < ActiveRecord::Base
     follower_ids[rand(follower_ids.size)]
   end
 
-  def create_executions!(pawn)
-    if self == RtScheme
-      Execution.create(:scheme => self, :pawn => pawn)
+  def create_executions!(pawn_obj)
+    if self.type == "RtScheme"
+      Execution.create(:scheme => self, :pawn => pawn_obj)
     else
-      unless (executions.map {|e| e.pawn }).include?(pawn) 
-        Execution.create(:scheme => self, :pawn => pawn)
+      unless too_many_executions?(pawn_obj)
+        Execution.create(:scheme => self, :pawn => pawn_obj)
       end
     end
+  end
+
+  def too_many_executions?(pawn)
+    @executions = Execution.all.select {|e| e.pawn == pawn_obj and e.scheme == self and e.state != "tweeted" and e.state != "retweeting" }
+    @executions.size > 5
   end
 
   def self.select_options
