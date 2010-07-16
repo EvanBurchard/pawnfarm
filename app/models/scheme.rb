@@ -41,7 +41,7 @@ class Scheme < ActiveRecord::Base
     end
   end
 
-  def too_many_executions?(pawn)
+  def too_many_executions?(pawn_obj)
     @executions = Execution.all.select {|e| e.pawn == pawn_obj and e.scheme == self and e.state != "tweeted" and e.state != "retweeting" }
     @executions.size > 5
   end
