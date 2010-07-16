@@ -52,11 +52,11 @@ class Execution < ActiveRecord::Base
   end
   
   def build_form_if_needed
-    if scheme.type == "RtScheme"
-      retweet
-    else
-      build_form
-    end
+    # if scheme.type == "RtScheme"
+    #   retweet
+    # else
+    #   build_form
+    # end
   end
   
   def build_form
