@@ -278,6 +278,22 @@ describe Execution do
       @execution.execute!
       @execution.state.should == "tweeted"           
     end
+    it "should_receive time_to_tweet?" do
+      @execution.stub!(:pawn).and_return(@pawn = mock_model(Pawn, :id => 1))
+      @pawn.stub!(:tweet)
+      @execution.should_receive(:time_to_tweet?)
+      @execution.execute!
+    end
+
+    describe "when it is not time to tweet" do
+      it "should_have state seeking_review_of_candidates" do
+        @execution.stub!(:pawn).and_return(@pawn = mock_model(Pawn, :id => 1))
+        @pawn.stub!(:tweet)
+        @execution.stub!(:time_to_tweet?).and_return(false)
+        @execution.execute!
+        @execution.state.should == "seeking_review_of_candidates"
+      end      
+    end
     
   end
 

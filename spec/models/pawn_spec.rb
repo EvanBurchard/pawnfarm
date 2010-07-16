@@ -78,13 +78,14 @@ describe Pawn do
     it "should create an execution for a pawn/scheme if there isn't one there" do
       @pawn.stub!(:schemes).and_return([@scheme = mock_model(Scheme, :pawn => @pawn)])
       @scheme.stub!(:executions).and_return([])
-      Execution.should_receive(:create)
+      @scheme.should_receive(:create_executions!)
       @pawn.create_executions!    
     end
     it "should not create an execution for a pawn/scheme if there is one there" do
       @pawn.stub!(:schemes).and_return([@scheme = mock_model(Scheme, :pawn => @pawn)])
       @execution = mock_model(Execution, :pawn => @pawn, :scheme => @scheme)
       @scheme.stub!(:executions).and_return([@execution])
+      @scheme.stub!(:create_executions!)
       Execution.should_not_receive(:create)
       @pawn.create_executions!    
     end

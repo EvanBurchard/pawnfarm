@@ -1,1 +1,6 @@
-<li><%=h @turk_form.body %></li>
+<% if @body.present? %>
+  <li><%=h "Your friend has just said #{@body}" %></li>
+<% end %>
+<% if @prompt.present? %>
+  <li><%=h @prompt %></li>
+<% end %>

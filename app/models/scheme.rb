@@ -31,6 +31,16 @@ class Scheme < ActiveRecord::Base
     follower_ids[rand(follower_ids.size)]
   end
 
+  def create_executions!(pawn)
+    if self == RtScheme
+      Execution.create(:scheme => self, :pawn => pawn)
+    else
+      unless (executions.map {|e| e.pawn }).include?(pawn) 
+        Execution.create(:scheme => self, :pawn => pawn)
+      end
+    end
+  end
+
   def self.select_options
     ["TweetScheme", "RtScheme", "AtScheme"]
   end
