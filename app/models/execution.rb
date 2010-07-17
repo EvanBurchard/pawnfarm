@@ -83,15 +83,28 @@ class Execution < ActiveRecord::Base
   end
   
   def turk_for_review
-    # present form url to turk     
+    # hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
+    #   hit.description = 'Write a twitter update'
+    #   hit.reward = 0.02
+    #   hit.assignments = 1
+    #   hit.question("http://pawnfarm.com/turk_forms/#{turk_form.id}")
+    # end         
   end
     
   def turk_for_candidates
     scheme.create_executions!(pawn)
-    # present form url to turk 
+    # hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
+    #   hit.description = 'Write a twitter update'
+    #   hit.reward = 0.02
+    #   hit.assignments = 2
+    #   hit.question("http://pawnfarm.com/turk_forms/#{turk_form????.id}")
+    # end         
   end
   
+  
   def candidates_found?
+    #candidate_a = ladfjsfdals 
+    #candidate_b = sdkjfksldjlkfds
     if (candidate_a.present? and candidate_b.present?)
       true
     end
