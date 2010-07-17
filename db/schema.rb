@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100715193632) do
+ActiveRecord::Schema.define(:version => 20100716223814) do
 
   create_table "executions", :force => true do |t|
     t.integer  "scheme_id"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(:version => 20100715193632) do
     t.string   "tweet_prompt"
     t.string   "tweet_prompt_relationship"
     t.string   "prompt"
-    t.string   "target"
+    t.string   "target_account"
     t.string   "target_relationship"
     t.datetime "created_at"
     t.datetime "updated_at"

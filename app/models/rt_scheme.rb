@@ -1,5 +1,5 @@
 class RtScheme < Scheme
-  validates_presence_of (:target)
+  validates_presence_of (:target_account)
 
   def self.model_name
     name = "scheme"

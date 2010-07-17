@@ -44,7 +44,7 @@ class Execution < ActiveRecord::Base
   end
   
   def retweet
-    pawn.retweet(scheme.target)
+    pawn.retweet(scheme.target_account)
     tweet
     if state == "tweeted"
       update_attribute(:tweeted_at, Time.now)

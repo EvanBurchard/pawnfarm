@@ -18,7 +18,7 @@ describe TurkForm do
     TurkForm.create!(@valid_attributes)
   end
   it "should have access to the execution's scheme's prompt" do
-    @scheme = AtScheme.create!(:prompt => "some prompt", :id => 1, :user_id => 1, :title => 1, :target => "some target")
+    @scheme = AtScheme.create!(:prompt => "some prompt", :id => 1, :user_id => 1, :title => 1, :target_account => "some target account")
     @turk_form = TurkForm.create!(@valid_attributes)
     @turk_form.stub!(:prompt).and_return(@scheme.prompt)
     @turk_form.prompt.should == "some prompt"

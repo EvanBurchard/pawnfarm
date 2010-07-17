@@ -40,6 +40,7 @@ describe Execution do
       @execution = Execution.new(@valid_attributes)      
       @pawn.stub!(:retweet)
       @execution.scheme.stub!(:tweet_frequency).and_return(1)      
+      @execution.scheme.stub!(:target_account).and_return("account")
     end
     it "should retweet" do 
       @pawn.should_receive(:retweet)
@@ -91,7 +92,7 @@ describe Execution do
             :candidate_b => "value for candidate_b",
             :winner => "value for winner"
           }
-          @scheme.stub!(:tweet_frequency).and_return(1)
+          @execution.scheme.stub!(:target_account).and_return("account")
           @execution.scheme.stub!(:tweet_frequency).and_return(1)      
         end
         it "should call time to tweet" do 
@@ -148,7 +149,7 @@ describe Execution do
           @execution.save
           @execution.state.should == "seeking_candidates"    
         end
-        it "should receive get status for target" do
+        it "should receive get status for target account" do
           @scheme.should_receive(:get_status_for_tweet_prompt)
           @execution.save
         end
@@ -185,7 +186,7 @@ describe Execution do
           @execution.save
           @execution.state.should == "seeking_candidates"    
         end
-        it "should not receive get status for target" do
+        it "should not receive get status for target account" do
           @scheme.should_not_receive(:get_status_for_tweet_prompt)
           @execution.save
         end

@@ -21,7 +21,7 @@ describe Scheme do
   it { should have_db_column(:tweet_prompt) }
   it { should have_db_column(:tweet_prompt_relationship) }
   it { should have_db_column(:prompt) }
-  it { should have_db_column(:target) }
+  it { should have_db_column(:target_account) }
   it { should have_db_column(:target_relationship) }        
 
 
@@ -54,7 +54,7 @@ describe Scheme do
       before(:each) do
         @valid_attributes = {:title => "scheme title", 
                              :user => (@user = mock_model(User, :id => 1)), 
-                             :target => "some_target_account",
+                             :target_account => "some_target_account",
                              :tweet_prompt => "some_twitter_account"}
         @scheme = AtScheme.new(@valid_attributes)
       end
@@ -79,7 +79,7 @@ describe Scheme do
       before(:each) do
         @valid_attributes = {:title => "scheme title", 
                              :user => (@user = mock_model(User, :id => 1)), 
-                             :target => "some_twitter_account",
+                             :target_account => "some_twitter_account",
                              :tweet_prompt => "some_twitter_account",
                              :tweet_prompt_relationship => "friends"}
         @scheme = AtScheme.new(@valid_attributes)
@@ -136,7 +136,7 @@ describe Scheme do
       before(:each) do
         @valid_attributes = {:title => "scheme title", 
                              :user => (@user = mock_model(User, :id => 1)), 
-                             :target => "some_twitter_account",
+                             :target_account => "some_twitter_account",
                              :tweet_prompt => "some_twitter_account",
                              :tweet_prompt_relationship => "followers"}
         @scheme = AtScheme.new(@valid_attributes)

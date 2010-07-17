@@ -8,8 +8,9 @@ CREATE TABLE `executions` (
   `winner` varchar(255) collate utf8_unicode_ci default NULL,
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
+  `tweeted_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `pawns` (
   `id` int(11) NOT NULL auto_increment,
@@ -45,12 +46,12 @@ CREATE TABLE `schemes` (
   `tweet_prompt` varchar(255) collate utf8_unicode_ci default NULL,
   `tweet_prompt_relationship` varchar(255) collate utf8_unicode_ci default NULL,
   `prompt` varchar(255) collate utf8_unicode_ci default NULL,
-  `target` varchar(255) collate utf8_unicode_ci default NULL,
+  `target_account` varchar(255) collate utf8_unicode_ci default NULL,
   `target_relationship` varchar(255) collate utf8_unicode_ci default NULL,
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `turk_forms` (
   `id` int(11) NOT NULL auto_increment,
@@ -60,7 +61,7 @@ CREATE TABLE `turk_forms` (
   `updated_at` datetime default NULL,
   `body` text collate utf8_unicode_ci,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `twitter_accounts` (
   `id` int(11) NOT NULL auto_increment,
@@ -120,3 +121,7 @@ INSERT INTO schema_migrations (version) VALUES ('20100712032747');
 INSERT INTO schema_migrations (version) VALUES ('20100713063346');
 
 INSERT INTO schema_migrations (version) VALUES ('20100713172338');
+
+INSERT INTO schema_migrations (version) VALUES ('20100715193632');
+
+INSERT INTO schema_migrations (version) VALUES ('20100716223814');

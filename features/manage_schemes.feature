@@ -56,7 +56,7 @@ Feature: Scheme Management
 		And I fill in the following:
   		 | Title       | new_scheme    |
   		 | Description | mwahahahahaha |
-  		 | scheme_target      | twitter_name  |
+  		 | scheme_target_account      | twitter_name  |
   	And I select "RT" from "scheme_type"
 		And I press "Create"
 		Then a scheme should exist with title: "new_scheme"
@@ -68,7 +68,7 @@ Feature: Scheme Management
 		And I fill in the following:
   		 | Title       | new_scheme    |
   		 | Description | mwahahahahaha |
-  		 | scheme_target      | twitter_name  |
+  		 | scheme_target_account      | twitter_name  |
   	And I select "@" from "scheme_type"
 		And I press "Create"
 		Then a scheme should exist with title: "new_scheme"

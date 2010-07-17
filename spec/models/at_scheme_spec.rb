@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe AtScheme do
-  it { should validate_presence_of(:target) }
+  it { should validate_presence_of(:target_account) }
   
   before(:each) do
     @valid_attributes = {
@@ -11,7 +11,7 @@ describe AtScheme do
       :tweet_prompt => "value for tweet_prompt",
       :tweet_prompt_relationship => "value for tweet_prompt_relationship",
       :prompt => "value for prompt",
-      :target => "value for target",
+      :target_account => "value for target_account",
       :target_relationship => "value for target_relationship"
     }
   end

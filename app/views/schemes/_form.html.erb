@@ -10,7 +10,7 @@
                         [["Tweet", Scheme.select_options[0]], 
                         ["RT", Scheme.select_options[1]], 
                         ["@", Scheme.select_options[2]]]%> 
-<span id="target_text">twitter user <%= form.text_field :target %> 
+<span id="target_account_text">twitter user <%= form.text_field :target_account %> 
 ('s   <%= form.select :target_relationship, 
                           ["self", "followers", "friends"]%> )</span>
 <span id="prompt_text">given the prompt <%= form.text_field :prompt %> and a recent tweet from
@@ -27,17 +27,17 @@
 
     if (el.value == "RtScheme") {
       $('prompt_text').hide();
-      $('target_text').show();
+      $('target_account_text').show();
 
     }
     else if (el.value == "AtScheme"){
-      $('target_text').show();
+      $('target_account_text').show();
       $('prompt_text').show();
       
       
     }
     else if (el.value == "TweetScheme"){
-      $('target_text').hide();
+      $('target_account_text').hide();
       $('prompt_text').show();
       
     }
