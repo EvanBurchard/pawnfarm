@@ -103,19 +103,21 @@ class Execution < ActiveRecord::Base
   
   
   def candidates_found?
-    #candidate_a = ladfjsfdals 
-    #candidate_b = sdkjfksldjlkfds
+    #self.update_attribute(candidate_a, ladfjsfdals) 
+    #self.update_attribute(candidate_b, sdkjfksldjlkfds)
     if (candidate_a.present? and candidate_b.present?)
       true
     end
   end
 
   def winner_found?
+    #winner = klsfdjsd
+    #if winner.present?
     true
   end
   
   def found_winner
-    self.winner = "candidate a"
+    self.winner = "candidate a"#WTF
     self.save
     tweet_winner
   end
