@@ -27,6 +27,7 @@ describe Execution do
       :winner => "value for winner"
     }
     @scheme.stub!(:get_status_for_tweet_prompt).and_return("status message")
+    @scheme.stub!(:create_executions!)
   end
 
   it "should create a new instance given valid attributes" do
@@ -81,7 +82,10 @@ describe Execution do
         @execution.tweeted_at.should == Time.now
       end
     end
-
+    it "should not call turk for candidates" do
+      @execution.should_not_receive(:turk_for_candidates)
+      @execution.save      
+    end
     describe "if there's been a recent tweet by the same execution type" do 
       Timecop.freeze(Date.today) do
         before(:each) do
@@ -114,6 +118,10 @@ describe Execution do
           @execution.save
           @execution.state.should == "retweeting"    
         end
+        it "should not call turk for candidates" do
+          @execution.should_not_receive(:turk_for_candidates)
+          @execution.save      
+        end
         
       end
     end    
@@ -127,8 +135,9 @@ describe Execution do
           @valid_attributes[:scheme] = @scheme = mock_model(Scheme, :id => 1, :type => "AtScheme", :tweet_prompt => "a user", :prompt => nil)
           @scheme.stub!(:get_status_for_tweet_prompt).and_return("status message")
           @execution = Execution.new(@valid_attributes)      
+          @execution.scheme.stub!(:create_executions!)
         end
-
+        
         it "should run the build_form method" do
           @execution.should_receive(:build_form)
           @execution.save
@@ -153,19 +162,28 @@ describe Execution do
           @scheme.should_receive(:get_status_for_tweet_prompt)
           @execution.save
         end
-
-        it "should call turk_for_candidates" do
+        it "should call create_executions!" do
           @execution = Execution.new(@valid_attributes)
-          @execution.should_receive(:turk_for_candidates)
+          @scheme.should_receive(:create_executions!)
           @execution.save    
+        end
+        it "should call create_executions!" do
+          @execution = Execution.new(@valid_attributes)
+          @scheme.should_receive(:create_executions!)
+          @execution.save    
+        end
+        it "should call turk for candidates" do
+          @execution.should_receive(:turk_for_candidates)
+          @execution.save      
         end
       end
       describe "without a tweet_prompt" do 
         before(:each) do 
           @valid_attributes[:scheme] = @scheme = mock_model(Scheme, :id => 1, :type => "AtScheme", :tweet_prompt => nil, :prompt => nil)
           @execution = Execution.new(@valid_attributes)      
+          @execution.scheme.stub!(:create_executions!)
         end
-
+  
         it "should run the build_form method" do
           @execution.should_receive(:build_form)
           @execution.save
@@ -190,10 +208,15 @@ describe Execution do
           @scheme.should_not_receive(:get_status_for_tweet_prompt)
           @execution.save
         end
-
+  
         it "should call turk_for_candidates" do
           @execution = Execution.new(@valid_attributes)
           @execution.should_receive(:turk_for_candidates)
+          @execution.save    
+        end
+        it "should call create_executions!" do
+          @execution = Execution.new(@valid_attributes)
+          @scheme.should_receive(:create_executions!)
           @execution.save    
         end
       end
@@ -203,6 +226,7 @@ describe Execution do
   describe "when candidates are found" do
     before(:each) do
       @execution = Execution.new(@valid_attributes)
+      @execution.scheme.stub!(:create_executions!)
       @execution.save    
       @execution.candidate_a = "candidate a"
       @execution.candidate_b = "candidate b"
@@ -238,6 +262,7 @@ describe Execution do
   describe "when a winner is selected" do
     before(:each) do
       @execution = Execution.new(@valid_attributes)
+      @execution.scheme.stub!(:create_executions!)
       @execution.save    
       @execution.candidate_a = "candidate a"
       @execution.candidate_b = "candidate b"
@@ -294,8 +319,7 @@ describe Execution do
         @execution.execute!
         @execution.state.should == "seeking_review_of_candidates"
       end      
-    end
-    
+    end    
   end
 
 end

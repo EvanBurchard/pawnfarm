@@ -87,6 +87,7 @@ class Execution < ActiveRecord::Base
   end
     
   def turk_for_candidates
+    scheme.create_executions!(pawn)
     # present form url to turk 
   end
   
@@ -127,6 +128,7 @@ class Execution < ActiveRecord::Base
       end
     end
   end
+
   # def cleanup_and_replicate
   #   clear_tasks_and_forms
   #   spawn_new_execution
