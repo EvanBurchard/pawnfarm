@@ -41,11 +41,11 @@ ActiveRecord::Schema.define(:version => 20100716223814) do
 
   create_table "schemes", :force => true do |t|
     t.integer  "user_id"
-    t.string   "title",                     :null => false
+    t.string   "title",                                    :null => false
     t.string   "description"
     t.string   "type"
     t.boolean  "random_interval"
-    t.integer  "frequency"
+    t.integer  "frequency",                 :default => 1, :null => false
     t.string   "tweet_prompt"
     t.string   "tweet_prompt_relationship"
     t.string   "prompt"

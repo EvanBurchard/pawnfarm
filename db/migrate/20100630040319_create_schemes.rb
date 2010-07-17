@@ -6,7 +6,7 @@ class CreateSchemes < ActiveRecord::Migration
       t.string :description
       t.string :type
       t.boolean :random_interval
-      t.integer :frequency
+      t.integer :frequency, :null => false, :default => 1
       t.string :tweet_prompt
       t.string :tweet_prompt_relationship
       t.string :prompt

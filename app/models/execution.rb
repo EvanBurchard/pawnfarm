@@ -108,9 +108,11 @@ class Execution < ActiveRecord::Base
   end
   
   def tweet_winner
-    update_attribute(:tweeted_at, Time.now)
-    tweet
-    pawn.tweet
+    if time_to_tweet?
+      update_attribute(:tweeted_at, Time.now)
+      tweet
+      pawn.tweet
+    end
   end
 
   def time_to_tweet?
@@ -124,7 +126,7 @@ class Execution < ActiveRecord::Base
       Time.now
     else
       @executions.inject(Time.now) do |time, e|
-        (time < (e.tweeted_at + scheme.tweet_frequency.hours)) ? time : e.tweeted_at + scheme.tweet_frequency.hours
+        (time < (e.tweeted_at + scheme.frequency.hours)) ? time : e.tweeted_at + scheme.frequency.hours
       end
     end
   end

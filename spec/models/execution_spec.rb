@@ -40,7 +40,7 @@ describe Execution do
       @valid_attributes[:state] = "retweeting"
       @execution = Execution.new(@valid_attributes)      
       @pawn.stub!(:retweet)
-      @execution.scheme.stub!(:tweet_frequency).and_return(1)      
+      @execution.scheme.stub!(:frequency).and_return(1)      
       @execution.scheme.stub!(:target_account).and_return("account")
     end
     it "should retweet" do 
@@ -97,7 +97,7 @@ describe Execution do
             :winner => "value for winner"
           }
           @execution.scheme.stub!(:target_account).and_return("account")
-          @execution.scheme.stub!(:tweet_frequency).and_return(1)      
+          @execution.scheme.stub!(:frequency).and_return(1)      
         end
         it "should call time to tweet" do 
           @execution.should_receive(:time_to_tweet?)
@@ -267,7 +267,7 @@ describe Execution do
       @execution.candidate_a = "candidate a"
       @execution.candidate_b = "candidate b"
       @execution.execute! 
-      @execution.scheme.stub!(:tweet_frequency).and_return(1)      
+      @execution.scheme.stub!(:frequency).and_return(1)      
     end
     it "should call winner_found?" do
       @execution.should_receive(:winner_found?)
