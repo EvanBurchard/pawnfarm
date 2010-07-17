@@ -60,7 +60,7 @@ class Execution < ActiveRecord::Base
   end
   
   def build_form
-    @turk_form = TurkForm.new(:execution => self, :body => form_body_text)
+    @turk_form = TurkForm.new(:execution => self, :body => form_body_text)#, :form_type => "write")
     @turk_form.save
     seek_candidates
     save
@@ -78,7 +78,7 @@ class Execution < ActiveRecord::Base
   end
 
   def build_review_form
-    @turk_form = TurkForm.new(:execution => self)
+    @turk_form = TurkForm.new(:execution => self)#, :form_type => "review")
     @turk_form.save    
   end
   
