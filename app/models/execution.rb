@@ -87,7 +87,7 @@ class Execution < ActiveRecord::Base
     #   hit.description = 'Write a twitter update'
     #   hit.reward = 0.02
     #   hit.assignments = 1
-    #   hit.question("http://pawnfarm.com/turk_forms/#{turk_form.id}")
+    #   hit.question("http://pawnfarm.com/turk_forms/#{turk_forms.select{:execution => self, :form_type => "review"}.id}")
     # end         
   end
     
@@ -97,7 +97,7 @@ class Execution < ActiveRecord::Base
     #   hit.description = 'Write a twitter update'
     #   hit.reward = 0.02
     #   hit.assignments = 2
-    #   hit.question("http://pawnfarm.com/turk_forms/#{turk_form????.id}")
+    #   hit.question("http://pawnfarm.com/turk_forms/#{turk_forms.select{:execution => self, :form_type => "review"}.id}")
     # end         
   end
   
@@ -145,27 +145,5 @@ class Execution < ActiveRecord::Base
       end
     end
   end
-
-  # def cleanup_and_replicate
-  #   clear_tasks_and_forms
-  #   spawn_new_execution
-  # end  
-  # def clear_tasks_and_forms
-  # end
-  # def spawn_new_execution
-  # end
-  # 
-  # 
-  # def cannot_find_winner
-  #   failure
-  # end
-  # 
-  # def cannot_find_candidates
-  #   failure
-  # end
-  # 
-  # aasm_event :failure do
-  #   transitions :to => :building_form
-  # end
 
 end
