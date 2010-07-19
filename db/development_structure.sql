@@ -10,7 +10,7 @@ CREATE TABLE `executions` (
   `updated_at` datetime default NULL,
   `tweeted_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `pawns` (
   `id` int(11) NOT NULL auto_increment,
@@ -23,7 +23,7 @@ CREATE TABLE `pawns` (
   `updated_at` datetime default NULL,
   `active` tinyint(1) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `pawns_schemes` (
   `pawn_id` int(11) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `schemes` (
   `description` varchar(255) collate utf8_unicode_ci default NULL,
   `type` varchar(255) collate utf8_unicode_ci default NULL,
   `random_interval` tinyint(1) default NULL,
-  `frequency` int(11) default NULL,
+  `frequency` int(11) NOT NULL default '1',
   `tweet_prompt` varchar(255) collate utf8_unicode_ci default NULL,
   `tweet_prompt_relationship` varchar(255) collate utf8_unicode_ci default NULL,
   `prompt` varchar(255) collate utf8_unicode_ci default NULL,
@@ -51,7 +51,7 @@ CREATE TABLE `schemes` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `turk_forms` (
   `id` int(11) NOT NULL auto_increment,
@@ -60,8 +60,9 @@ CREATE TABLE `turk_forms` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   `body` text collate utf8_unicode_ci,
+  `form_type` varchar(255) collate utf8_unicode_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `twitter_accounts` (
   `id` int(11) NOT NULL auto_increment,
@@ -81,7 +82,7 @@ CREATE TABLE `twitter_accounts` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL auto_increment,
@@ -102,7 +103,7 @@ CREATE TABLE `users` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO schema_migrations (version) VALUES ('20100629150411');
 
@@ -125,3 +126,5 @@ INSERT INTO schema_migrations (version) VALUES ('20100713172338');
 INSERT INTO schema_migrations (version) VALUES ('20100715193632');
 
 INSERT INTO schema_migrations (version) VALUES ('20100716223814');
+
+INSERT INTO schema_migrations (version) VALUES ('20100717074625');

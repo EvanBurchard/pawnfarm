@@ -60,7 +60,7 @@ class Execution < ActiveRecord::Base
   end
   
   def build_form
-    @turk_form = TurkForm.new(:execution => self, :body => form_body_text)#, :form_type => "write")
+    @turk_form = TurkForm.new(:execution => self, :body => form_body_text, :form_type => "write")
     @turk_form.save
     seek_candidates
     save
@@ -74,16 +74,23 @@ class Execution < ActiveRecord::Base
 
   def turk_for_candidates
     scheme.create_executions!(pawn)
-    # @turk_form = turk_forms.select{:execution => self, :form_type => "write"}.first
-    # hit = RTurk::Hit.create(:title => 'Which response is better?') do |hit|
-    #   hit.description = 'Choose the better response given the prompt'
-    #   hit.reward = 0.02
-    #   hit.assignments = 2
-    #   hit.question("http://pawnfarm.com/turk_forms/#{@turk_formid}")
-    # end         
-    # @turk_form.update_attribute(:url, hit.url) 
+    @write_form = find_write_form
+    @hit = create_hit(@write_form)
+    @write_form.update_attribute(:url, @hit.url) 
   end
 
+  def find_write_form 
+    turk_forms.select {|t| t.execution == self and t.form_type == "write"}.first
+  end
+
+  def create_hit(turk_form)
+    hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
+      hit.description = 'Write a twitter update'
+      hit.reward = 0.02
+      hit.assignments = 2
+      hit.question("http://pawnfarm.com/turk_forms/#{turk_form.id}")
+    end             
+  end
 
   def candidates_found?
     #self.update_attribute(candidate_a, ladfjsfdals) 
@@ -104,9 +111,9 @@ class Execution < ActiveRecord::Base
   end
   
   def turk_for_review
-    # @turk_form = turk_forms.select{:execution => self, :form_type => "review"}.first
-    # hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
-    #   hit.description = 'Write a twitter update'
+    # @turk_form = turk_forms.select{|t| t.execution == self and t.form_type == "review"}.first
+    # hit = RTurk::Hit.create(:title => 'Which response is better?') do |hit|
+    #   hit.description = 'Choose the better response given the prompt'
     #   hit.reward = 0.02
     #   hit.assignments = 1
     #   hit.question("http://pawnfarm.com/turk_forms/#{@turk_form.id}")

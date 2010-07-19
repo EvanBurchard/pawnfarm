@@ -31,7 +31,12 @@ describe Execution do
   end
 
   it "should create a new instance given valid attributes" do
-    Execution.create!(@valid_attributes)
+    @execution = Execution.new(@valid_attributes)
+    @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
+    @hit.stub!(:url).and_return("http://fake_form_url.com")
+    @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
+    @turk_form.stub!(:update_attribute)
+    @execution.save
   end
   
   describe "for the exection of a RtScheme" do
@@ -135,7 +140,11 @@ describe Execution do
           @valid_attributes[:scheme] = @scheme = mock_model(Scheme, :id => 1, :type => "AtScheme", :tweet_prompt => "a user", :prompt => nil)
           @scheme.stub!(:get_status_for_tweet_prompt).and_return("status message")
           @execution = Execution.new(@valid_attributes)      
+          @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
+          @hit.stub!(:url).and_return("http://fake_form_url.com")
           @execution.scheme.stub!(:create_executions!)
+          @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
+          @turk_form.stub!(:update_attribute)
         end
         
         it "should run the build_form method" do
@@ -163,17 +172,15 @@ describe Execution do
           @execution.save
         end
         it "should call create_executions!" do
-          @execution = Execution.new(@valid_attributes)
-          @scheme.should_receive(:create_executions!)
-          @execution.save    
-        end
-        it "should call create_executions!" do
-          @execution = Execution.new(@valid_attributes)
-          @scheme.should_receive(:create_executions!)
+          @execution.scheme.should_receive(:create_executions!)
           @execution.save    
         end
         it "should call turk for candidates" do
           @execution.should_receive(:turk_for_candidates)
+          @execution.save      
+        end
+        it "should find the write form" do
+          @execution.should_receive(:find_write_form)
           @execution.save      
         end
       end
@@ -182,6 +189,10 @@ describe Execution do
           @valid_attributes[:scheme] = @scheme = mock_model(Scheme, :id => 1, :type => "AtScheme", :tweet_prompt => nil, :prompt => nil)
           @execution = Execution.new(@valid_attributes)      
           @execution.scheme.stub!(:create_executions!)
+          @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
+          @hit.stub!(:url).and_return("http://fake_form_url.com")
+          @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
+          @turk_form.stub!(:update_attribute)
         end
   
         it "should run the build_form method" do
@@ -210,13 +221,11 @@ describe Execution do
         end
   
         it "should call turk_for_candidates" do
-          @execution = Execution.new(@valid_attributes)
           @execution.should_receive(:turk_for_candidates)
           @execution.save    
         end
         it "should call create_executions!" do
-          @execution = Execution.new(@valid_attributes)
-          @scheme.should_receive(:create_executions!)
+          @execution.scheme.should_receive(:create_executions!)
           @execution.save    
         end
       end
@@ -227,6 +236,10 @@ describe Execution do
     before(:each) do
       @execution = Execution.new(@valid_attributes)
       @execution.scheme.stub!(:create_executions!)
+      @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
+      @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
+      @hit.stub!(:url).and_return("http://fake_form_url.com")
+      @turk_form.stub!(:update_attribute)
       @execution.save    
       @execution.candidate_a = "candidate a"
       @execution.candidate_b = "candidate b"
@@ -257,12 +270,15 @@ describe Execution do
       @execution.should_receive(:turk_for_review)
       @execution.execute! 
     end
-    
   end
   describe "when a winner is selected" do
     before(:each) do
       @execution = Execution.new(@valid_attributes)
       @execution.scheme.stub!(:create_executions!)
+      @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
+      @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
+      @hit.stub!(:url).and_return("http://fake_form_url.com")
+      @turk_form.stub!(:update_attribute)
       @execution.save    
       @execution.candidate_a = "candidate a"
       @execution.candidate_b = "candidate b"
