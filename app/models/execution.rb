@@ -68,10 +68,31 @@ class Execution < ActiveRecord::Base
 
   def form_body_text
     if scheme.tweet_prompt.present?
-        "#{scheme.get_status_for_tweet_prompt}"
+      scheme.get_status_for_tweet_prompt
     end
   end
-  
+
+  def turk_for_candidates
+    scheme.create_executions!(pawn)
+    # @turk_form = turk_forms.select{:execution => self, :form_type => "write"}.first
+    # hit = RTurk::Hit.create(:title => 'Which response is better?') do |hit|
+    #   hit.description = 'Choose the better response given the prompt'
+    #   hit.reward = 0.02
+    #   hit.assignments = 2
+    #   hit.question("http://pawnfarm.com/turk_forms/#{@turk_formid}")
+    # end         
+    # @turk_form.update_attribute(:url, hit.url) 
+  end
+
+
+  def candidates_found?
+    #self.update_attribute(candidate_a, ladfjsfdals) 
+    #self.update_attribute(candidate_b, sdkjfksldjlkfds)
+    if (candidate_a.present? and candidate_b.present?)
+      true
+    end
+  end
+
   def found_candidates
     build_review_form
     seek_candidate_review
@@ -83,32 +104,17 @@ class Execution < ActiveRecord::Base
   end
   
   def turk_for_review
+    # @turk_form = turk_forms.select{:execution => self, :form_type => "review"}.first
     # hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
     #   hit.description = 'Write a twitter update'
     #   hit.reward = 0.02
     #   hit.assignments = 1
-    #   hit.question("http://pawnfarm.com/turk_forms/#{turk_forms.select{:execution => self, :form_type => "review"}.id}")
-    # end         
+    #   hit.question("http://pawnfarm.com/turk_forms/#{@turk_form.id}")
+    # end
+    # @turk_form.url.update_attribute(:url, hit.url)          
   end
-    
-  def turk_for_candidates
-    scheme.create_executions!(pawn)
-    # hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
-    #   hit.description = 'Write a twitter update'
-    #   hit.reward = 0.02
-    #   hit.assignments = 2
-    #   hit.question("http://pawnfarm.com/turk_forms/#{turk_forms.select{:execution => self, :form_type => "review"}.id}")
-    # end         
-  end
+      
   
-  
-  def candidates_found?
-    #self.update_attribute(candidate_a, ladfjsfdals) 
-    #self.update_attribute(candidate_b, sdkjfksldjlkfds)
-    if (candidate_a.present? and candidate_b.present?)
-      true
-    end
-  end
 
   def winner_found?
     #winner = klsfdjsd
