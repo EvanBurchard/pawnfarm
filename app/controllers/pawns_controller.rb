@@ -70,10 +70,11 @@ class PawnsController < ApplicationController
 
   def assign_token_and_secret(oauth_verifier)
     @pawn = TwitterAccount.find_by_request_token_and_request_secret(session['rtoken'], session['rsecret']).pawn
+    logger.info("oauth- #{oauth.inspect}")
     logger.info("request token- #{@pawn.twitter_account.request_token}, request secret- #{@pawn.twitter_account.request_secret}, oauth_verifier- #{oauth_verifier}")
     
     oauth.authorize_from_request(@pawn.twitter_account.request_token, @pawn.twitter_account.request_secret, oauth_verifier)
-    #profile = Twitter::Base.new(oauth).verify_credentials
+    # profile = Twitter::Base.new(oauth).verify_credentials
     #sign_in(profile)
     @twitter_account = @pawn.twitter_account
     @twitter_account.access_key = oauth.access_token.token
