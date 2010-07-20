@@ -73,7 +73,7 @@ class PawnsController < ApplicationController
     logger.info("oauth- #{oauth.inspect}")
     logger.info("request token- #{@pawn.twitter_account.request_token}, request secret- #{@pawn.twitter_account.request_secret}, oauth_verifier- #{oauth_verifier}")
     
-    # oauth.authorize_from_request(@pawn.twitter_account.request_token, @pawn.twitter_account.request_secret, oauth_verifier)
+    oauth.authorize_from_request(@pawn.twitter_account.request_token, @pawn.twitter_account.request_secret, oauth_verifier)
     # profile = Twitter::Base.new(oauth).verify_credentials
     #sign_in(profile)
     @twitter_account = @pawn.twitter_account
