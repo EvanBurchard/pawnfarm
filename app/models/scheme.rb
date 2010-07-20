@@ -35,7 +35,7 @@ class Scheme < ActiveRecord::Base
     if self.type == "RtScheme"
       Execution.create(:scheme => self, :pawn => pawn_obj)
     else
-      unless too_many_executions?(pawn_obj)
+      unless too_many_executions?(pawn_obj) 
         Execution.create(:scheme => self, :pawn => pawn_obj)
       end
     end
@@ -43,7 +43,9 @@ class Scheme < ActiveRecord::Base
 
   def too_many_executions?(pawn_obj)
     @executions = Execution.all.select {|e| e.pawn == pawn_obj and e.scheme == self and e.state != "tweeted" and e.state != "retweeting" }
-    @executions.size > 5
+    if @executions.present?
+      @executions.size > 4 or (@executions.map {|e| e.created_at}.max < (Time.now + 5.minutes))
+    end
   end
 
   def self.select_options

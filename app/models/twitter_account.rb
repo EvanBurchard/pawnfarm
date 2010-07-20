@@ -5,7 +5,12 @@ class TwitterAccount < ActiveRecord::Base
   validates_presence_of :password
   
   def set_client
-    @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true)
+    if RAILS_ENV=="test"
+      @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true)
+    else
+      @endpoint = 'http://'+ENV['APIGEE_TWITTER_API_ENDPOINT']
+      @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true, :api_endpoint => @endpoint)      
+    end
     @oauth.authorize_from_access(access_key, access_secret)
     Twitter::Base.new(@oauth)    
   end

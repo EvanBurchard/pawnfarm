@@ -8,7 +8,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
 
   def oauth
-    @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true)
+    if RAILS_ENV=="test"
+      @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true)
+    else
+      @endpoint = 'http://'+ENV['APIGEE_TWITTER_API_ENDPOINT']
+      @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true, :api_endpoint => @endpoint)      
+    end
   end
   
   private
