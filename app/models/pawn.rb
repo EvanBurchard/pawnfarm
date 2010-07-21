@@ -17,10 +17,8 @@ class Pawn < ActiveRecord::Base
   end 
 
   def execute!
-    logger.info("number of turkforms is: #{TurkForm.all.size}")
     create_executions!
     executions.each { |e| e.execute! }
-    logger.info("number of turkforms is: #{TurkForm.all.size}")
   end
   
   def create_executions!

@@ -31,7 +31,9 @@ class Execution < ActiveRecord::Base
   
   def execute!
     if state == "seeking_candidates"
+      logger.info ("hitting here")
       if candidates_found?
+        logger.info ("hitting here 1")
         found_candidates
       end
     elsif state == "seeking_review_of_candidates"
