@@ -143,8 +143,12 @@ describe Execution do
           @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
           @hit.stub!(:url).and_return("http://fake_form_url.com")
           @execution.scheme.stub!(:create_executions!)
-          @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
-          @turk_form.stub!(:update_attribute)
+          @execution.stub!(:candidate_a).and_return(@candidate_a = mock_model(TurkForm, :form_type => "candidate_a", :execution_id => @execution.id))                                                          
+          @execution.stub!(:candidate_b).and_return(@candidate_b = mock_model(TurkForm, :form_type => "candidate_b", :execution_id => @execution.id))                                                          
+          @execution.stub!(:candidates).and_return(@candidates = [@candidate_a, @candidate_b])
+          @candidates.each do |c|
+            c.stub!(:update_attribute)
+          end
         end
         
         it "should run the build_forms method" do
@@ -160,7 +164,7 @@ describe Execution do
           @execution.turk_forms[0].body.should_not be nil    
         end
         it "should run the form body text method" do
-          @execution.should_receive(:form_body_text)
+          @execution.should_receive(:form_body_text).twice
           @execution.save
         end
         it "should have the seeking candidates state" do
@@ -179,10 +183,18 @@ describe Execution do
           @execution.should_receive(:turk_for_candidates)
           @execution.save      
         end
-        it "should find the write form" do
-          @execution.should_receive(:find_write_form)
+        it "should find candidates" do
+          @execution.should_receive(:candidates)
           @execution.save      
         end
+        # it "should receive candidate_a" do 
+        #   @execution.should_receive(:candidate_a)
+        #   @execution.save      
+        # end
+        # it "should receive candidate_b" do 
+        #   @execution.should_receive(:candidate_b)
+        #   @execution.save     
+        # end
       end
       describe "without a tweet_prompt" do 
         before(:each) do 
@@ -208,7 +220,7 @@ describe Execution do
           @execution.turk_forms[0].body.should be nil    
         end
         it "should run the form body text method" do
-          @execution.should_receive(:form_body_text)
+          @execution.should_receive(:form_body_text).twice
           @execution.save
         end
         it "should have the seeking candidates state" do
@@ -278,10 +290,7 @@ describe Execution do
       @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
       @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
       @hit.stub!(:url).and_return("http://fake_form_url.com")
-      @turk_form.stub!(:update_attribute)
       @execution.save    
-      @execution.candidate_a = "candidate a"
-      @execution.candidate_b = "candidate b"
       @execution.execute! 
       @execution.scheme.stub!(:frequency).and_return(1)      
     end

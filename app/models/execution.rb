@@ -1,5 +1,3 @@
-#when to clear assignments/forms?
-
 class Execution < ActiveRecord::Base
   belongs_to :scheme
   belongs_to :pawn
@@ -8,20 +6,20 @@ class Execution < ActiveRecord::Base
   validates_presence_of :pawn_id
   validates_presence_of :scheme_id
   
-  after_create :build_form_if_needed
+  after_create :build_forms_if_needed
   
   include AASM
   aasm_column :state
-  aasm_initial_state :building_form
+  aasm_initial_state :building_forms
 
   aasm_state :retweeting
-  aasm_state :building_form
+  aasm_state :building_forms
   aasm_state :seeking_candidates, :enter => :turk_for_candidates
   aasm_state :seeking_review_of_candidates, :enter => :turk_for_review
   aasm_state :tweeted
 
   aasm_event :seek_candidates do
-    transitions :to => :seeking_candidates, :from => :building_form
+    transitions :to => :seeking_candidates, :from => :building_forms
   end
   
   aasm_event :seek_candidate_review do
@@ -51,7 +49,7 @@ class Execution < ActiveRecord::Base
     end
   end
   
-  def build_form_if_needed
+  def build_forms_if_needed
     if scheme.type == "RtScheme"
       retweet
     else
@@ -60,8 +58,8 @@ class Execution < ActiveRecord::Base
   end
   
   def build_forms
-    @turk_form = TurkForm.new(:execution => self, :body => form_body_text, :form_type => "write")
-    @turk_form.save
+    TurkForm.create(:execution => self, :body => form_body_text, :form_type => "candidate_a")
+    TurkForm.create(:execution => self, :body => form_body_text, :form_type => "candidate_b")
     seek_candidates
     save
   end
@@ -74,13 +72,23 @@ class Execution < ActiveRecord::Base
 
   def turk_for_candidates
     scheme.create_executions!(pawn)
-    @write_form = find_write_form
-    @hit = create_hit(@write_form)
-    @write_form.update_attribute(:url, @hit.url) 
+    @candidates = candidates
+    @candidates.each do |c|
+      @hit = create_hit(c)
+      c.update_attribute(:url, @hit.url)
+    end
   end
 
-  def find_write_form 
-    turk_forms.select {|t| t.execution == self and t.form_type == "write"}.first
+  def candidates
+    [candidate_a, candidate_b]
+  end
+  
+  def candidate_a 
+    turk_forms.select {|t| t.execution == self and t.form_type == "candidate_a"}.first
+  end
+  
+  def candidate_b 
+    turk_forms.select {|t| t.execution == self and t.form_type == "candidate_b"}.first
   end
 
   def create_hit(turk_form)
@@ -130,8 +138,7 @@ class Execution < ActiveRecord::Base
   end
   
   def found_winner
-    self.winner = "candidate a"#WTF
-    self.save
+    update_attribute(:winner, candidate_a)
     tweet_winner
   end
   
