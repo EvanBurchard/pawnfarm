@@ -55,11 +55,11 @@ class Execution < ActiveRecord::Base
     if scheme.type == "RtScheme"
       retweet
     else
-      build_form
+      build_forms
     end
   end
   
-  def build_form
+  def build_forms
     @turk_form = TurkForm.new(:execution => self, :body => form_body_text, :form_type => "write")
     @turk_form.save
     seek_candidates
@@ -87,7 +87,7 @@ class Execution < ActiveRecord::Base
     hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
       hit.description = 'Write a twitter update'
       hit.reward = 0.02
-      hit.assignments = 2
+      hit.assignments = 1
       hit.question("http://pawnfarm.com/turk_forms/#{turk_form.id}")
     end             
   end

@@ -52,8 +52,8 @@ describe Execution do
       @pawn.should_receive(:retweet)
       @execution.save
     end
-    it "should not run the build form method" do
-      @execution.should_not_receive(:build_form)    
+    it "should not run the build forms method" do
+      @execution.should_not_receive(:build_forms)    
       @execution.save
     end
     it "should run the tweet method" do
@@ -147,8 +147,8 @@ describe Execution do
           @turk_form.stub!(:update_attribute)
         end
         
-        it "should run the build_form method" do
-          @execution.should_receive(:build_form)
+        it "should run the build_forms method" do
+          @execution.should_receive(:build_forms)
           @execution.save
         end
         it "should build a turk form" do
@@ -195,8 +195,8 @@ describe Execution do
           @turk_form.stub!(:update_attribute)
         end
   
-        it "should run the build_form method" do
-          @execution.should_receive(:build_form)
+        it "should run the build_forms method" do
+          @execution.should_receive(:build_forms)
           @execution.save
         end
         it "should build a turk form" do
