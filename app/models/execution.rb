@@ -60,8 +60,11 @@ class Execution < ActiveRecord::Base
   def build_forms
     TurkForm.create(:execution => self, :body => form_body_text, :form_type => "candidate_a")
     TurkForm.create(:execution => self, :body => form_body_text, :form_type => "candidate_b")
+    logger.info("number of turkforms is: #{TurkForm.all.size}")
     seek_candidates
+    logger.info("number of turkforms is: #{TurkForm.all.size}")
     save
+    logger.info("number of turkforms is: #{TurkForm.all.size}")
   end
 
   def form_body_text
