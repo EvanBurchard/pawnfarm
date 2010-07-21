@@ -33,8 +33,9 @@ class Execution < ActiveRecord::Base
     if state == "seeking_candidates"
       logger.info ("hitting here")
       if candidates_found?
-        logger.info ("hitting here 1")
+        logger.info ("hitting here turk_form_size- #{TurkForm.all.size}")
         found_candidates
+        logger.info ("hitting here turk_form_size- #{TurkForm.all.size}")
       end
     elsif state == "seeking_review_of_candidates"
       if winner_found?
