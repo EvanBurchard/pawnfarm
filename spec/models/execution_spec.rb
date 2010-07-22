@@ -143,9 +143,9 @@ describe Execution do
           @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
           @hit.stub!(:url).and_return("http://fake_form_url.com")
           @execution.scheme.stub!(:create_executions!)
-          @execution.stub!(:candidate_a).and_return(@candidate_a = mock_model(TurkForm, :form_type => "candidate_a", :execution_id => @execution.id))                                                          
-          @execution.stub!(:candidate_b).and_return(@candidate_b = mock_model(TurkForm, :form_type => "candidate_b", :execution_id => @execution.id))                                                          
-          @execution.stub!(:candidates).and_return(@candidates = [@candidate_a, @candidate_b])
+          @execution.stub!(:form_a).and_return(@form_a = mock_model(TurkForm, :form_type => "form_a", :execution_id => @execution.id))                                                          
+          @execution.stub!(:form_b).and_return(@form_b = mock_model(TurkForm, :form_type => "form_b", :execution_id => @execution.id))                                                          
+          @execution.stub!(:candidates).and_return(@candidates = [@form_a, @form_b])
           @candidates.each do |c|
             c.stub!(:update_attribute)
           end
@@ -187,11 +187,11 @@ describe Execution do
           @execution.should_receive(:candidates)
           @execution.save      
         end
-        # it "should receive candidate_a" do 
+        # it "should receive form_a" do 
         #   @execution.should_receive(:candidate_a)
         #   @execution.save      
         # end
-        # it "should receive candidate_b" do 
+        # it "should receive form_b" do 
         #   @execution.should_receive(:candidate_b)
         #   @execution.save     
         # end

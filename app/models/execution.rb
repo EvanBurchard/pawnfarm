@@ -31,11 +31,8 @@ class Execution < ActiveRecord::Base
   
   def execute!
     if state == "seeking_candidates"
-      logger.info ("hitting here")
       if candidates_found?
-        logger.info ("hitting here turk_form_size- #{TurkForm.all.size}")
         found_candidates
-        logger.info ("hitting here turk_form_size- #{TurkForm.all.size}")
       end
     elsif state == "seeking_review_of_candidates"
       if winner_found?
@@ -61,13 +58,10 @@ class Execution < ActiveRecord::Base
   end
   
   def build_forms
-    TurkForm.create(:execution => self, :body => form_body_text, :form_type => "candidate_a")
-    TurkForm.create(:execution => self, :body => form_body_text, :form_type => "candidate_b")
-    logger.info("number of turkforms is: #{TurkForm.all.size}")
+    TurkForm.create(:execution => self, :body => form_body_text, :form_type => "form_a")
+    TurkForm.create(:execution => self, :body => form_body_text, :form_type => "form_b")
     seek_candidates
-    logger.info("number of turkforms is: #{TurkForm.all.size}")
     save
-    logger.info("number of turkforms is: #{TurkForm.all.size}")
   end
 
   def form_body_text
@@ -86,15 +80,15 @@ class Execution < ActiveRecord::Base
   end
 
   def candidates
-    [candidate_a, candidate_b]
+    [form_a, form_b]
   end
   
-  def candidate_a 
-    turk_forms.select {|t| t.execution == self and t.form_type == "candidate_a"}.first
+  def form_a 
+    turk_forms.select {|t| t.execution == self and t.form_type == "form_a"}.first
   end
   
-  def candidate_b 
-    turk_forms.select {|t| t.execution == self and t.form_type == "candidate_b"}.first
+  def form_b 
+    turk_forms.select {|t| t.execution == self and t.form_type == "form_b"}.first
   end
 
   def create_hit(turk_form)
