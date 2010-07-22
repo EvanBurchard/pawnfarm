@@ -76,6 +76,7 @@ class Execution < ActiveRecord::Base
     @candidates.each do |c|
       @hit = create_hit(c)
       c.update_attribute(:url, @hit.url)
+      c.update_attribute(:hit_id, @hit.hit_id)
     end
   end
 
@@ -103,9 +104,7 @@ class Execution < ActiveRecord::Base
   def candidates_found?
     #self.update_attribute(candidate_a, ladfjsfdals) 
     #self.update_attribute(candidate_b, sdkjfksldjlkfds)
-    if (candidate_a.present? and candidate_b.present?)
-      true
-    end
+    (candidate_a.present? and candidate_b.present?) ? true : false
   end
 
   def found_candidates

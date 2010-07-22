@@ -61,6 +61,7 @@ CREATE TABLE `turk_forms` (
   `updated_at` datetime default NULL,
   `body` text collate utf8_unicode_ci,
   `form_type` varchar(255) collate utf8_unicode_ci default NULL,
+  `hit_id` varchar(255) collate utf8_unicode_ci default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -128,3 +129,5 @@ INSERT INTO schema_migrations (version) VALUES ('20100715193632');
 INSERT INTO schema_migrations (version) VALUES ('20100716223814');
 
 INSERT INTO schema_migrations (version) VALUES ('20100717074625');
+
+INSERT INTO schema_migrations (version) VALUES ('20100722064816');

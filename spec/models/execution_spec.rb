@@ -34,6 +34,7 @@ describe Execution do
     @execution = Execution.new(@valid_attributes)
     @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
     @hit.stub!(:url).and_return("http://fake_form_url.com")
+    @hit.stub!(:hit_id)
     @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
     @turk_form.stub!(:update_attribute)
     @execution.save
@@ -142,6 +143,7 @@ describe Execution do
           @execution = Execution.new(@valid_attributes)      
           @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
           @hit.stub!(:url).and_return("http://fake_form_url.com")
+          @hit.stub!(:hit_id)
           @execution.scheme.stub!(:create_executions!)
           @execution.stub!(:form_a).and_return(@form_a = mock_model(TurkForm, :form_type => "form_a", :execution_id => @execution.id))                                                          
           @execution.stub!(:form_b).and_return(@form_b = mock_model(TurkForm, :form_type => "form_b", :execution_id => @execution.id))                                                          
@@ -203,6 +205,7 @@ describe Execution do
           @execution.scheme.stub!(:create_executions!)
           @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
           @hit.stub!(:url).and_return("http://fake_form_url.com")
+          @hit.stub!(:hit_id)
           @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
           @turk_form.stub!(:update_attribute)
         end
@@ -251,6 +254,7 @@ describe Execution do
       @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
       @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
       @hit.stub!(:url).and_return("http://fake_form_url.com")
+      @hit.stub!(:hit_id)
       @turk_form.stub!(:update_attribute)
       @execution.save    
       @execution.candidate_a = "candidate a"
@@ -290,6 +294,7 @@ describe Execution do
       @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
       @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
       @hit.stub!(:url).and_return("http://fake_form_url.com")
+      @hit.stub!(:hit_id)
       @execution.save    
       @execution.execute! 
       @execution.scheme.stub!(:frequency).and_return(1)      
