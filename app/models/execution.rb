@@ -102,8 +102,18 @@ class Execution < ActiveRecord::Base
   end
 
   def candidates_found?
-    #self.update_attribute(candidate_a, ladfjsfdals) 
-    #self.update_attribute(candidate_b, sdkjfksldjlkfds)
+    hit_a = RTurk::GetHIT(:hit_id => candidate_a.hit_id)
+    if hit_a.assignments.present?
+      self.update_attribute(:candidate_a, hit_a.assignments.first.answers['tweet'])
+      hit_a.assignments.first.approve!
+      hit_a.dispose!
+    end
+    hit_b = RTurk::GetHIT(:hit_id => candidate_b.hit_id)
+    if hit_b.assignments.present?
+      self.update_attribute(:candidate_b, hit_b.assignments.first.answers['tweet'])
+      hit_b.assignments.first.approve!
+      hit_b.dispose!
+    end
     (candidate_a.present? and candidate_b.present?) ? true : false
   end
 
@@ -113,19 +123,28 @@ class Execution < ActiveRecord::Base
   end
 
   def build_review_form
-    @turk_form = TurkForm.new(:execution => self)#, :form_type => "review")
+    @turk_form = TurkForm.new(:execution => self, :form_type => "review")
     @turk_form.save    
   end
   
+  def review_form
+    turk_forms.select{|t| t.execution == self and t.form_type == "review"}.first
+  end
+
+  def create_review_hit
+    hit = RTurk::Hit.create(:title => 'Which response is better?') do |hit|
+      hit.description = 'Choose the better response given the prompt'
+      hit.reward = 0.02
+      hit.assignments = 1
+      hit.question("http://pawnfarm.com/turk_forms/#{review_form.id}")
+    end    
+  end
+  
   def turk_for_review
-    # @turk_form = turk_forms.select{|t| t.execution == self and t.form_type == "review"}.first
-    # hit = RTurk::Hit.create(:title => 'Which response is better?') do |hit|
-    #   hit.description = 'Choose the better response given the prompt'
-    #   hit.reward = 0.02
-    #   hit.assignments = 1
-    #   hit.question("http://pawnfarm.com/turk_forms/#{@turk_form.id}")
-    # end
-    # @turk_form.url.update_attribute(:url, hit.url)          
+    @turk_form = review_form
+    @hit = create_review_hit
+    @turk_form.update_attribute(:url, @hit.url)
+    @turk_form.update_attribute(:hit_id, @hit.hit_id)
   end
       
   

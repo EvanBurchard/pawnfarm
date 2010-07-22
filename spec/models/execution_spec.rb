@@ -251,11 +251,13 @@ describe Execution do
     before(:each) do
       @execution = Execution.new(@valid_attributes)
       @execution.scheme.stub!(:create_executions!)
-      @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
       @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
       @hit.stub!(:url).and_return("http://fake_form_url.com")
       @hit.stub!(:hit_id)
-      @turk_form.stub!(:update_attribute)
+      @execution.stub!(:candidates_found?).and_return(true)
+      @execution.stub!(:review_form).and_return(@review_form = mock_model(TurkForm, :form_type => "review", :execution_id => @execution.id))
+      @review_form.stub!(:update_attribute)
+      @review_form.stub!(:id).and_return(1)
       @execution.save    
       @execution.candidate_a = "candidate a"
       @execution.candidate_b = "candidate b"
@@ -291,10 +293,13 @@ describe Execution do
     before(:each) do
       @execution = Execution.new(@valid_attributes)
       @execution.scheme.stub!(:create_executions!)
-      @execution.stub!(:find_write_form).and_return(@turk_form = mock_model(TurkForm, :form_type => "write", :execution_id => @execution.id))
       @execution.stub!(:create_hit).and_return(@hit = mock_model(RTurk::Hit))
       @hit.stub!(:url).and_return("http://fake_form_url.com")
       @hit.stub!(:hit_id)
+      @execution.stub!(:candidates_found?).and_return(true)
+      @execution.stub!(:review_form).and_return(@review_form = mock_model(TurkForm, :form_type => "review", :execution_id => @execution.id))
+      @review_form.stub!(:id).and_return(1)
+      @review_form.stub!(:update_attribute)
       @execution.save    
       @execution.execute! 
       @execution.scheme.stub!(:frequency).and_return(1)      

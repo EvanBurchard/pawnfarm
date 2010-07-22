@@ -27,4 +27,5 @@ Spec::Runner.configure do |config|
   FakeWeb.register_uri(:get, %r|http:\/\/api.twitter.com\/oauth\/authorize\?oauth_token=\S*|, :body => "Allow PawnFarm access?")
   FakeWeb.register_uri(:post, 'http://api.twitter.com/oauth/request_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
   FakeWeb.register_uri(:get, 'http://api.twitter.com/1/users/show/.json', :body => {:status => {:text => "some message"}})
+  FakeWeb.register_uri(:get, %r|http:\/\/mechanicalturk.sandbox.amazonaws.com\S*|, :body => "<?xml version=\"1.0\"?>\n<CreateHITResponse><OperationRequest><RequestId>3e8b4269-d287-4d1c-bb82-2dd352c6b0d2</RequestId></OperationRequest><HIT><Request><IsValid>True</IsValid></Request><HITId>1S5VPD4ZD25QFAPM4LHERZFYQE1528</HITId><HITTypeId>18EPHS476DW6VB2R81AQ5172Z9WCKZ</HITTypeId></HIT></CreateHITResponse>", :status => ["200", "OK"])
 end
