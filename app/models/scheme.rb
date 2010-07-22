@@ -15,7 +15,6 @@ class Scheme < ActiveRecord::Base
       @twitter_login_or_id = tweet_prompt    
     end
     @message = get_status(@twitter_login_or_id)
-    "Your friend has just said: #{@message}"
   end
 
   def get_status(twitter_login_or_id)
