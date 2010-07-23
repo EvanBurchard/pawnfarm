@@ -102,17 +102,24 @@ class Execution < ActiveRecord::Base
   end
 
   def candidates_found?
-    hit_a = RTurk::GetHIT(:hit_id => form_a.hit_id)
-    if hit_a.assignments.present?
-      self.update_attribute(:candidate_a, hit_a.assignments.first.answers['tweet'])
-      hit_a.assignments.first.approve!
-      hit_a.dispose!
-    end
-    hit_b = RTurk::GetHIT(:hit_id => form_b.hit_id)
-    if hit_b.assignments.present?
-      self.update_attribute(:candidate_b, hit_b.assignments.first.answers['tweet'])
-      hit_b.assignments.first.approve!
-      hit_b.dispose!
+    hits = RTurk::Hit.all_reviewable
+    unless hits.empty?
+      hits.each do |hit|
+        if hit.id == form_a.hit_id
+          if hit.assignments.present?
+            self.update_attribute(:candidate_a, hit.assignments.first.answers['tweet'])
+            hit.assignments.first.approve!
+            hit.dispose!
+          end
+        end
+        if hit.id == form_b.hit_id
+          if hit.assignments.present?
+            self.update_attribute(:candidate_a, hit.assignments.first.answers['tweet'])
+            hit.assignments.first.approve!
+            hit.dispose!
+          end
+        end
+      end        
     end
     (candidate_a.present? and candidate_b.present?) ? true : false
   end
