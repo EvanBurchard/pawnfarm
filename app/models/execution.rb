@@ -114,7 +114,7 @@ class Execution < ActiveRecord::Base
         end
         if hit.id == form_b.hit_id
           if hit.assignments.present?
-            self.update_attribute(:candidate_a, hit.assignments.first.answers['tweet'])
+            self.update_attribute(:candidate_b, hit.assignments.first.answers['tweet'])
             hit.assignments.first.approve!
             hit.dispose!
           end
