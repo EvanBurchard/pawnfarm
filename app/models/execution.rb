@@ -94,7 +94,7 @@ class Execution < ActiveRecord::Base
 
   def create_hit(turk_form)
     hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
-      hit.description = "Write a twitter update (#{Digest::MD5.hexdigest(Time.now.to_s)})"
+      hit.description = "Write a twitter update"
       hit.reward = 0.02
       hit.assignments = 1
       hit.question("http://pawnfarm.com/turk_forms/#{turk_form.id}")
@@ -130,8 +130,10 @@ class Execution < ActiveRecord::Base
   end
 
   def build_review_form
-    @turk_form = TurkForm.new(:execution => self, :form_type => "review")
-    @turk_form.save    
+    if turk_forms.size < 3
+      @turk_form = TurkForm.new(:execution => self, :form_type => "review")
+      @turk_form.save    
+    end
   end
   
   def review_form
