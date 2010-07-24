@@ -94,7 +94,7 @@ class Execution < ActiveRecord::Base
 
   def create_hit(turk_form)
     hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
-      hit.description = 'Write a twitter update'
+      hit.description = "Write a twitter update (#{Digest::MD5.hexdigest(Time.now.to_s)})"
       hit.reward = 0.02
       hit.assignments = 1
       hit.question("http://pawnfarm.com/turk_forms/#{turk_form.id}")
