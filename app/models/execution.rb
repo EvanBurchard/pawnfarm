@@ -131,8 +131,7 @@ class Execution < ActiveRecord::Base
 
   def build_review_form
     if turk_forms.size < 3
-      @turk_form = TurkForm.new(:execution => self, :form_type => "review")
-      @turk_form.save    
+      turk_forms.build(:form_type => "review")
     end
   end
   
