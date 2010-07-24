@@ -127,6 +127,7 @@ class Execution < ActiveRecord::Base
   def found_candidates
     build_review_form
     seek_candidate_review
+    save
   end
 
   def build_review_form
