@@ -93,8 +93,8 @@ class Execution < ActiveRecord::Base
   end
 
   def create_hit(turk_form)
-    hit = RTurk::Hit.create(:title => 'Write a tweet for me') do |hit|
-      hit.description = "Write a twitter update (#{Time.now.to_s})"
+    hit = RTurk::Hit.create(:title => "Write a tweet for me (#{Time.now.to_s})") do |hit|
+      hit.description = "Write a twitter update"
       hit.reward = 0.02
       hit.assignments = 1
       hit.question("http://pawnfarm.com/turk_forms/#{turk_form.id}")
@@ -141,8 +141,8 @@ class Execution < ActiveRecord::Base
   end
 
   def create_review_hit
-    hit = RTurk::Hit.create(:title => 'Which response is better?') do |hit|
-      hit.description = "Choose the better response given the prompt (#{Time.now.to_s})"
+    hit = RTurk::Hit.create(:title => "Which response is better? (#{Time.now.to_s})") do |hit|
+      hit.description = "Choose the better response given the prompt"
       hit.reward = 0.02
       hit.assignments = 1
       hit.question("http://pawnfarm.com/turk_forms/#{review_form.id}")
