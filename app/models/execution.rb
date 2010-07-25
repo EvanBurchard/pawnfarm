@@ -145,6 +145,7 @@ class Execution < ActiveRecord::Base
       hit.description = "Choose the better response given the prompt"
       hit.reward = 0.02
       hit.assignments = 1
+      logger.info (review_form.id)
       hit.question("http://pawnfarm.com/turk_forms/#{review_form.id}")
     end    
   end
