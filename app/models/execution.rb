@@ -132,7 +132,7 @@ class Execution < ActiveRecord::Base
 
   def build_review_form
     if turk_forms.size < 3
-      turk_forms.build(:form_type => "review")
+      turk_forms.create(:form_type => "review")
     end
   end
   
@@ -142,21 +142,16 @@ class Execution < ActiveRecord::Base
 
   def create_review_hit
     @turk_form = review_form
-    logger.info("What the turk form is: #{@turk_form} (inside of create_review_hit)")        
     hit = RTurk::Hit.create(:title => "Which response is better? (#{Time.now.to_s})") do |hit|
       hit.description = "Choose the better response given the prompt"
       hit.reward = 0.02
       hit.assignments = 1
-      logger.info("Review form id that is being sent to turk: #{@turk_form.id}")
       hit.question("http://pawnfarm.com/turk_forms/#{@turk_form.id}")
     end    
   end
   
   def turk_for_review
     @turk_form = review_form
-    logger.info("All turk forms: #{turk_forms.map do |t| t.inspect end}")
-    logger.info("What the turk form is: #{@turk_form} (before review hit is created)")        
-    logger.info("Review form id that is being sent to turk: #{@turk_form.id} (before review hit is created)")    
     @hit = create_review_hit
     @turk_form.update_attribute(:url, @hit.url)
     @turk_form.update_attribute(:hit_id, @hit.hit_id)
