@@ -1,4 +1,3 @@
-<!-- This file needs to be hosted on an external server. -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -22,22 +21,6 @@
       return results[1];
   }
 
-  function lengthCheck()
-  {
-    if (document.getElementById('tweet').value.length > 120) {
-      alert("Must be less than 120 characters! Currently " + document.getElementById('tweet').value.length);
-      return false;
-    }
-  }
-
-  // function checkedCheck()
-  // {
-    // if (document.getElementById('candidate_a').value == 0 && document.getElementById('candidate_b').value == 0) {
-    //   alert("Must select one");
-    //   return false;
-    // }
-  // }
-
   //
   // This method decodes the query parameters that were URL-encoded
   //
@@ -47,17 +30,23 @@
     return unescape(encoded.replace(/\+/g, " "));
   }
   
+  function lengthCheck()
+  {
+    if (document.getElementById('tweet').value.length > 120) {
+      alert("Must be less than 140 characters! Currently " + document.getElementById('tweet').value.length);
+      return false;
+    }
+  }
     
   
   /*]]>*/
   </script>
 </head>
 <body>
+<form id="mturk_form" method="post" action="http://www.mturk.com/mturk/externalSubmit" onSubmit="return lengthCheck()">
 <input type="hidden" id="assignmentId" name="assignmentId" value="" />
 
-  <%= yield %>
-
-
+<%= yield %>
 <p/>
 <input id="submitButton" type="submit" name="Submit" value="Submit" />
 <p/>
@@ -86,5 +75,3 @@
 </script>
 </body>
 </html>
-
-
