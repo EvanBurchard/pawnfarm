@@ -27,8 +27,9 @@ class Pawn < ActiveRecord::Base
     end
   end
   
-  def tweet
-
+  def tweet(message)
+    client = set_client
+    client.update(message)
   end
   
   def retweet(user_to_retweet)

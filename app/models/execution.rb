@@ -132,7 +132,7 @@ class Execution < ActiveRecord::Base
 
   def build_review_form
     if turk_forms.size < 3
-      turk_forms.create(:form_type => "review")
+      turk_forms.create(:form_type => "review", :execution => self, :body => form_a.body)
     end
   end
   
@@ -160,13 +160,26 @@ class Execution < ActiveRecord::Base
   
 
   def winner_found?
-    #winner = klsfdjsd
-    #if winner.present?
-    true
+    hits = RTurk::Hit.all_reviewable
+    unless hits.empty?
+      hits.each do |hit|
+        if hit.id == review_form.hit_id
+          if hit.assignments.present?
+            if hit.assignments.first.answers["candidates"] == "candidate_a"
+              update_attribute(:winner, candidate_a)
+            elsif hit.assignments.first.answers["candidates"] == "candidate_b"
+              update_attribute(:winner, candidate_b)
+            end
+            hit.assignments.first.approve!
+            hit.dispose!
+          end
+        end
+      end
+    end
+    winner.present? ? true : false
   end
   
   def found_winner
-    update_attribute(:winner, candidate_a)
     tweet_winner
   end
   
@@ -174,7 +187,7 @@ class Execution < ActiveRecord::Base
     if time_to_tweet?
       update_attribute(:tweeted_at, Time.now)
       tweet
-      pawn.tweet
+      pawn.tweet(winner)
     end
   end
 

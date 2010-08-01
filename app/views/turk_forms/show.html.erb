@@ -7,7 +7,7 @@
     <h3>Assignment:</h3>
     <ul>
       <li>You should be familiar with Twitter and microblogging</li>
-    <% if @tweet_prompt.present? %>
+    <% if @tweet_prompt.present? #not working? %>
       <li><%=h "Respond to your friend who has just said: #{@tweet_prompt}" %></li>
     <% end %>
     <% if @prompt.present? %>
