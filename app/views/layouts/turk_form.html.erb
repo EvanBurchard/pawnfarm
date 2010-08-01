@@ -22,6 +22,22 @@
       return results[1];
   }
 
+  function lengthCheck()
+  {
+    if (document.getElementById('tweet').value.length > 120) {
+      alert("Must be less than 120 characters! Currently " + document.getElementById('tweet').value.length);
+      return false;
+    }
+  }
+
+  // function checkedCheck()
+  // {
+    // if (document.getElementById('candidate_a').value == 0 && document.getElementById('candidate_b').value == 0) {
+    //   alert("Must select one");
+    //   return false;
+    // }
+  // }
+
   //
   // This method decodes the query parameters that were URL-encoded
   //

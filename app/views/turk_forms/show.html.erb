@@ -1,13 +1,4 @@
 <% if @turk_form.form_type == "review" %>
-<script>
-function checkedCheck()
-{
-  // if (document.getElementById('candidate_a').value == 0 && document.getElementById('candidate_b').value == 0) {
-  //   alert("Must select one");
-  //   return false;
-  // }
-}
-</script>
   <form id="mturk_form" method="post" action="http://www.mturk.com/mturk/externalSubmit" onSubmit="return checkedCheck()">
 
   <h1>Help me choose the better response given the following prompt:<h1>
@@ -31,15 +22,6 @@ function checkedCheck()
     <h2><input type="radio" name="candidates" id="candidate_b" value="candidate_b" /><%= @turk_form.execution.candidate_b %></h2>
     
 <% else %>
-  <script>
-  function lengthCheck()
-  {
-    if (document.getElementById('tweet').value.length > 120) {
-      alert("Must be less than 120 characters! Currently " + document.getElementById('tweet').value.length);
-      return false;
-    }
-  }
-  </script>
   
   <form id="mturk_form" method="post" action="http://www.mturk.com/mturk/externalSubmit" onSubmit="return lengthCheck()">
 
