@@ -31,32 +31,16 @@
     return unescape(encoded.replace(/\+/g, " "));
   }
   
-  function lengthCheck()
-  {
-    if (document.getElementById('tweet').value.length > 120) {
-      alert("Must be less than 120 characters! Currently " + document.getElementById('tweet').value.length);
-      return false;
-    }
-  }
     
   
   /*]]>*/
   </script>
 </head>
 <body>
-<form id="mturk_form" method="post" action="http://www.mturk.com/mturk/externalSubmit" onSubmit="return lengthCheck()">
 <input type="hidden" id="assignmentId" name="assignmentId" value="" />
-<h1>Help me write a twitter update</h1>
 
-<p />
-<h2>Assignment:</h2>
-<ul>
-  <li>You should be familiar with Twitter and microblogging</li>
   <%= yield %>
-  <li>The response should be less than 120 characters.</li>
-</ul>
 
-<textarea rows="4" cols="40" tabindex="1" autocomplete="off" name="tweet" id="tweet"></textarea>
 
 <p/>
 <input id="submitButton" type="submit" name="Submit" value="Submit" />

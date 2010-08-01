@@ -1,6 +1,62 @@
-<% if @tweet_prompt.present? %>
-  <li><%=h "Respond to your friend who has just said: #{@tweet_prompt}" %></li>
-<% end %>
-<% if @prompt.present? %>
-  <li><%=h @prompt %></li>
+<% if @turk_form.form_type == "review" %>
+<script>
+function checkedCheck()
+{
+  // if (document.getElementById('candidate_a').value == 0 && document.getElementById('candidate_b').value == 0) {
+  //   alert("Must select one");
+  //   return false;
+  // }
+}
+</script>
+  <form id="mturk_form" method="post" action="http://www.mturk.com/mturk/externalSubmit" onSubmit="return checkedCheck()">
+
+  <h1>Help me choose the better response given the following prompt:<h1>
+
+    <h3>Help me write a twitter update</h3>
+    <h3>Assignment:</h3>
+    <ul>
+      <li>You should be familiar with Twitter and microblogging</li>
+    <% if @tweet_prompt.present? %>
+      <li><%=h "Respond to your friend who has just said: #{@tweet_prompt}" %></li>
+    <% end %>
+    <% if @prompt.present? %>
+      <li><%=h @prompt %></li>
+    <% end %>
+      <li>The response should be less than 120 characters.</li>
+    </ul>
+    
+    <h2>Is the better response:</h2>
+    <h2><input type="radio" name="candidates" id="candidate_a" value="candidate_a" /> <%= @turk_form.execution.candidate_a %></h2>
+    <h2>Or</h2>
+    <h2><input type="radio" name="candidates" id="candidate_b" value="candidate_b" /><%= @turk_form.execution.candidate_b %></h2>
+    
+<% else %>
+  <script>
+  function lengthCheck()
+  {
+    if (document.getElementById('tweet').value.length > 120) {
+      alert("Must be less than 120 characters! Currently " + document.getElementById('tweet').value.length);
+      return false;
+    }
+  }
+  </script>
+  
+  <form id="mturk_form" method="post" action="http://www.mturk.com/mturk/externalSubmit" onSubmit="return lengthCheck()">
+
+  <h1>Help me write a twitter update</h1>
+
+  <p />
+  <h2>Assignment:</h2>
+  <ul>
+    <li>You should be familiar with Twitter and microblogging</li>
+  <% if @tweet_prompt.present? %>
+    <li><%=h "Respond to your friend who has just said: #{@tweet_prompt}" %></li>
+  <% end %>
+  <% if @prompt.present? %>
+    <li><%=h @prompt %></li>
+  <% end %>
+    <li>The response should be less than 120 characters.</li>
+  </ul>
+  <textarea rows="4" cols="40" tabindex="1" autocomplete="off" name="tweet" id="tweet"></textarea>
+  
 <% end %>
