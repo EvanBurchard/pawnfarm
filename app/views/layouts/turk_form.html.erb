@@ -36,6 +36,11 @@
       alert("Must be less than 140 characters! Currently " + document.getElementById('tweet').value.length);
       return false;
     }
+    if (document.getElementById('tweet').value.length < 3) {
+      alert("This is really short.  Please make a bit more of an effort. Currently " + document.getElementById('tweet').value.length + "characters.");
+      return false;
+    }
+    
   }
     
   
