@@ -300,6 +300,7 @@ describe Execution do
       @execution.stub!(:review_form).and_return(@review_form = mock_model(TurkForm, :form_type => "review", :execution_id => @execution.id))
       @review_form.stub!(:id).and_return(1)
       @review_form.stub!(:update_attribute)
+      @review_form.stub!(:hit_id)
       @execution.save    
       @execution.execute! 
       @execution.scheme.stub!(:frequency).and_return(1)      
