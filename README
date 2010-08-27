@@ -8,10 +8,13 @@ Then you need to create twitter accounts.
 Then you need to register with your application.
 Then you need to create some pawns at pawns/new.  One thing to note here is that if you are not logged in as the desired pawn, you will be prompted to.  But if you are logged in as any other account, twitter will give pawnfarm access to that account.  If that's your personal account, then that could get dicey.  
 I deployed this to heroku, which has built in support for apigee, but you still need to add it as an add on
+Last thing to do is to flip the switch in environment.rb to :sandbox => false
+
+Additional notes:
 
 Maybe it's not so terribly automatic, but after the setup, you can with very little additional guidance, use pawnfarm to automatically generate and schedule tweets, @'s, and RT's, even specifying custom directions to your pawns (ie. Talk about the weather, comment on the main article of wired, etc.).  
 
-Each message will run you about 6 cents.  2 for each tweet creation task and 2 cents for a task that compares the tweets and decides what is better.  This could be a whole lot cheaper if the turk tasks were batched but they're not at the moment.
+Each message will run you about 6 cents.  2 for each tweet creation task and 2 cents for a task that compares the tweets and decides what is better.  This could be a whole lot cheaper if the turk tasks were batched but they're not at the moment. Also terrible is the error handling coverage.  There is none.  
 
 MIT License.  
 
