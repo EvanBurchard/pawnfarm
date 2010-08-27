@@ -1,0 +1,9 @@
+<h2>Schemes</h2>
+<%= link_to "New Scheme", new_scheme_path %>
+
+<ul>
+  <% for scheme in @schemes %>
+  <li><%= link_to scheme.title, scheme_path(scheme) %></li>
+  <li><%= h scheme.description %></li>
+  <% end %>
+</ul>

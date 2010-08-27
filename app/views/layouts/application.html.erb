@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title> </title>
+    <%= javascript_include_tag 'prototype' %>
+    <% unless controller_name == "turk_forms" %>
+      <%= stylesheet_link_tag 'style' %>
+    <% end %>
+  </head>
+  <body>
+    <% if current_user %>
+      <div id="main_nav">
+        <span><%= link_to "Pawns", :pawns %> </span>
+        <span><%= link_to "Schemes", :schemes %> </span>
+        <span><%= link_to "Logout", :logout %> </span>
+      </div>
+    <% else%>
+      <div>
+        <h1><%= link_to "Login", :login %></h1>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: 
+  name: MyString
+  twitter_username: MyString
+  twitter_password: MyString
+  frequency: 1
+  schedule: MyString
+
+two:
+  user: 
+  name: MyString
+  twitter_username: MyString
+  twitter_password: MyString
+  frequency: 1
+  schedule: MyString

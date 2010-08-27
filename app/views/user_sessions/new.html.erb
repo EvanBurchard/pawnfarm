@@ -1,0 +1,7 @@
+<h2>Login</h2>
+
+<% form_for @user_session, :url => login_path do |f|%>
+	<%= f.error_messages %>
+	<%= render :partial => f %>
+	<%= f.submit "Login"%>
+<% end %>

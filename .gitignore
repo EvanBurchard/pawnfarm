@@ -1,0 +1,4 @@
+log/*
+config/database.yml
+tmp/*
+coverage/*

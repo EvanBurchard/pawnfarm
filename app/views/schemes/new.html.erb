@@ -1,0 +1,7 @@
+<h1>New Scheme</h1>
+
+<% form_for @scheme do |f|%>
+	<%= f.error_messages %>
+	<%= render :partial => f %>
+	<%= f.submit "Create", :id => "save_button" %>
+<% end %>

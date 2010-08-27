@@ -1,0 +1,6 @@
+<h1><%=h @scheme.title %></h1>
+<p><%=h @scheme.description %></p>
+<% if @is_owner %>
+<%= link_to "Edit", edit_scheme_path(@scheme) %>
+<%= link_to "Delete", @scheme, :confirm => "Are you sure you want to delete this scheme?", :method => :delete %>
+<% end %>
