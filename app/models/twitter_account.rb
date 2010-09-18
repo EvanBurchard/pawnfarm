@@ -5,11 +5,12 @@ class TwitterAccount < ActiveRecord::Base
   validates_presence_of :password
   
   def set_client
+    setup = YAML::load(File.open(RAILS_ROOT + 'config/setup.yml')))
     if RAILS_ENV=="test"
-      @oauth ||= Twitter::OAuth.new("API_TOKEN", "API_SECRET", :sign_in => true)
+      @oauth ||= Twitter::OAuth.new(setup['twitter']['api_token'], setup['twitter']['api_secret'], :sign_in => true)
     else
-      @endpoint = 'http://'+ENV['APIGEE_TWITTER_API_ENDPOINT']
-      @oauth ||= Twitter::OAuth.new("API_TOKEN", "API_SECRET", :sign_in => true, :api_endpoint => @endpoint)      
+      @endpoint = 'http://'+ setup['twitter']['apigee_endpoint']
+      @oauth ||= Twitter::OAuth.new(setup['twitter']['api_token'], setup['twitter']['api_secret'], :sign_in => true, :api_endpoint => @endpoint)      
     end
     @oauth.authorize_from_access(access_key, access_secret)
     Twitter::Base.new(@oauth)    

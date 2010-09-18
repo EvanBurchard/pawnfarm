@@ -3,3 +3,5 @@ config/database.yml
 tmp/*
 coverage/*
 *.swp
+.bundle/*
+Gemfile.lock
