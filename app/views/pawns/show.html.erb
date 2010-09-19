@@ -3,4 +3,6 @@
 <% if @is_owner %>
 <%= link_to "Edit", edit_pawn_path(@pawn) %>
 <%= link_to "Delete", @pawn, :confirm => "Are you sure you want to delete this pawn?", :method => :delete %>
+<%= link_to "Execute", execute_pawn_path(@pawn) %>
+
 <% end %>

@@ -44,6 +44,11 @@ class PawnsController < ApplicationController
     assign_token_and_secret(params[:oauth_verifier])
     redirect_to pawn_path(@pawn)
   end
+
+  def execute
+    @pawn = Pawn.find(params[:id])
+    @pawn.execute!
+  end
   
   private 
   def assign_pawn

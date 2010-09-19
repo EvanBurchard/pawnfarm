@@ -2,7 +2,8 @@
 - Logged in (seed data)
 
 - AWS + tie in
-- need to go to requestersandbox.mturk.com
+- if you want to just play around in the sandbox, need to go to requestersandbox.mturk.com
+- otherwise to connect it to a real account, need to set sandbox => false in enviroment.rb
 
 - create Twitter account 
 - log out of twitter
@@ -20,6 +21,9 @@ Seed data
 
 Wishlist:
 
+Tell the turker to go and read the account,
+and choose a tweet that better represents the personality.  
+Add an execute buttion to the pawn
 Tweeting from pawnfarm
 User Agent Spoofing (if possible)
 Grouping AMT tasks together.
