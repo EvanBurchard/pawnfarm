@@ -60,7 +60,8 @@ class PawnsController < ApplicationController
   end
 
   def authorize_url
-    oauth.set_callback_url("http://sharp-journey-33.heroku.com#{finalize_pawn_path}")      
+    setup = YAML::load(File.open(RAILS_ROOT + '/config/setup.yml'))
+    oauth.set_callback_url("#{setup['server_url']}#{finalize_pawn_path}")      
     session['rtoken'] = @pawn.twitter_account.request_token = oauth.request_token.token
     session['rsecret'] = @pawn.twitter_account.request_secret = oauth.request_token.secret
     @pawn.twitter_account.save
