@@ -1,0 +1,53 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    aasm (2.1.7)
+    actionmailer (2.3.5)
+      actionpack (= 2.3.5)
+    actionpack (2.3.5)
+      activesupport (= 2.3.5)
+      rack (~> 1.0.0)
+    activerecord (2.3.5)
+      activesupport (= 2.3.5)
+    activeresource (2.3.5)
+      activesupport (= 2.3.5)
+    activesupport (2.3.5)
+    authlogic (2.1.6)
+      activesupport
+    crack (0.1.6)
+    hashie (0.2.2)
+    httparty (0.5.2)
+      crack (= 0.1.6)
+    mime-types (1.16)
+    nokogiri (1.4.3.1)
+    oauth (0.4.3)
+    rack (1.0.1)
+    rails (2.3.5)
+      actionmailer (= 2.3.5)
+      actionpack (= 2.3.5)
+      activerecord (= 2.3.5)
+      activeresource (= 2.3.5)
+      activesupport (= 2.3.5)
+      rake (>= 0.8.3)
+    rake (0.8.7)
+    rest-client (1.6.1)
+      mime-types (>= 1.16)
+    rturk (2.3.0)
+      nokogiri (>= 1.4.1)
+      rest-client (>= 1.4.0)
+    twitter (0.9.8)
+      hashie (~> 0.2.0)
+      httparty (~> 0.5.0)
+      oauth (~> 0.4.1)
+      yajl-ruby (~> 0.7.0)
+    yajl-ruby (0.7.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aasm
+  authlogic
+  rails (= 2.3.5)
+  rturk
+  twitter

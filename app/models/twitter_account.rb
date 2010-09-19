@@ -5,7 +5,7 @@ class TwitterAccount < ActiveRecord::Base
   validates_presence_of :password
   
   def set_client
-    setup = YAML::load(File.open(RAILS_ROOT + 'config/setup.yml')))
+    setup = YAML::load(File.open(RAILS_ROOT + 'config/setup.yml'))
     if RAILS_ENV=="test"
       @oauth ||= Twitter::OAuth.new(setup['twitter']['api_token'], setup['twitter']['api_secret'], :sign_in => true)
     else

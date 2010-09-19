@@ -4,4 +4,3 @@ tmp/*
 coverage/*
 *.swp
 .bundle/*
-Gemfile.lock
