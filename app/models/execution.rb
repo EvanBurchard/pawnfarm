@@ -94,7 +94,7 @@ class Execution < ActiveRecord::Base
 
   def create_hit(turk_form)
     setup = YAML::load(File.open(RAILS_ROOT + '/config/setup.yml'))
-    hit = RTurk::Hit.create(:title => "Write a tweet for me (#{Time.now.to_s})") do |hit|
+    hit = RTurk::Hit.create(:title => "Help me write a tweet (#{Time.now.to_s})") do |hit|
       hit.description = "Write a twitter update"
       hit.reward = 0.02
       hit.assignments = 1
