@@ -189,6 +189,7 @@ class Execution < ActiveRecord::Base
     if time_to_tweet?
       update_attribute(:tweeted_at, Time.now)
       tweet
+      save
       pawn.tweet(winner)
     end
   end
