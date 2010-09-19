@@ -4,3 +4,4 @@ tmp/*
 coverage/*
 *.swp
 .bundle/*
+config/setup.yml
