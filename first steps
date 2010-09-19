@@ -2,9 +2,20 @@ Typical Stuff:
 
 1) git clone ...
 2) I like having gems in a Gemfile so that I can just intall the bundle
-[(sudo) bundle install], having bundler as a pre-req[ (sudo) gem install bundler]
+[(sudo) bundle i
+nstall], having bundler as a pre-req[ (sudo) gem install bundler]
 3)generated a dummy rails project just for the default sqlite3 database.yml:
 rails new dummy -d sqlite3
+4) get an aws account and pase the api key & secret into the config/setup.yml
+5) make a twitter account and api key and setup the api_secret and token, make the server a whatever.com/pawns/finalize
+
+
+
+4) rake db:migrate or rake db:migrate RAILS_ENV=production
+5) rake db:seed
+6) 
+
+
 4)Went into console and made a new user
 ./script/console
 User.create(:login => "cats", :email => "test@test.com", :password => "pass", :password_confirmation => "pass")
