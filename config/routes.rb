@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
 
   map.finalize_pawn "/pawns/finalize", :controller => "pawns", :action => "finalize"
+  map.finalize_pawn "/pawns/:id/execute", :controller => "pawns", :action => "execute"
   map.turk_form "turk_forms/:id", :controller => "turk_forms", :action => "show"
   
   map.resource :user_session
