@@ -26,3 +26,7 @@ config.action_view.cache_template_loading            = true
 
 # Enable threaded mode
 # config.threadsafe!
+
+%w[scheme rt_scheme at_scheme tweet_scheme].each do |c|
+  require_dependency File.join("app","models","#{c}.rb")
+end
