@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     if RAILS_ENV=="test"
       @oauth ||= Twitter::OAuth.new(setup['twitter']['api_token'], setup['twitter']['api_secret'], :sign_in => true)
     else
-      @endpoint = 'http://'+ setup['twitter']['apigee_endpoint']
+      @endpoint = 'http://'+ (setup["twitter"]["apigee"] == 'yes' ? Env["APIGEE_TWITTER_API_ENDPOINT"] : "api.twitter.com" ) 
       @oauth ||= Twitter::OAuth.new(setup['twitter']['api_token'], setup['twitter']['api_secret'], :sign_in => true, :api_endpoint => @endpoint)      
     end
   end

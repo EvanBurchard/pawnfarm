@@ -5,3 +5,4 @@ coverage/*
 *.swp
 .bundle/*
 Gemfile.lock
+config/setup.yml
