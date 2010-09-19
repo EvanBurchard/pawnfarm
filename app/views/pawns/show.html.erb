@@ -2,7 +2,7 @@
 <p><%=h @pawn.description%></p>
 <p>Execution states</p><ul>
 <% @pawn.executions.each do |exec| %>
-  <li><% exec.state.humanize %></li>
+  <li><%= exec.state.humanize %></li>
 <% end %>
 </ul>
 <% if @is_owner %>
