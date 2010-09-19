@@ -1,8 +1,8 @@
 aws:
-  key: "AKIAIGTHLNTR6RLD56IA"
-  secret: "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"
+  key: 'AKIAIGTHLNTR6RLD56IA'
+  secret: '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'
 
 twitter:
-  api_token:"192366112-AN3IJ3RW6dhZIkQ2WQvXFixuvLucxp5DGqWrDsFs"
-  api_secret:"1BcAiKx1KQEftDP75JgYFYF1OGLsjeTKGhdPGtj3Zo"
-  apigee: "yes" 
+  api_token: '192366112-AN3IJ3RW6dhZIkQ2WQvXFixuvLucxp5DGqWrDsFs'
+  api_secret: '1BcAiKx1KQEftDP75JgYFYF1OGLsjeTKGhdPGtj3Zo'
+  apigee: 'yes' 
