@@ -1,0 +1,43 @@
+- server running
+- Logged in (seed data)
+
+- AWS + tie in
+- if you want to just play around in the sandbox, need to go to requestersandbox.mturk.com
+- otherwise to connect it to a real account, need to set sandbox => false in enviroment.rb
+
+- create Twitter account 
+- log out of twitter
+- Create pawn 
+- create scheme
+- Link the scheme to the pawn
+- Write a Background job or cron job
+- 
+
+
+Seed data
+- test account
+- basic schemes
+- 
+
+Wishlist:
+
+Tell the turker to go and read the account,
+and choose a tweet that better represents the personality.  
+Add an execute buttion to the pawn
+Tweeting from pawnfarm
+User Agent Spoofing (if possible)
+Grouping AMT tasks together.
+
+
+
+http://dev.twitter.com/apps/new
+
+http://docs.heroku.com/apigee
+
+heroku addons:add apigee
+
+LeStanimi
+webeco123
+
+lestanimi@gmail.com
+webeco321

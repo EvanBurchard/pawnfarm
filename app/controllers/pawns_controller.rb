@@ -44,6 +44,13 @@ class PawnsController < ApplicationController
     assign_token_and_secret(params[:oauth_verifier])
     redirect_to pawn_path(@pawn)
   end
+
+  def execute
+    puts params[:id]
+    @pawn = Pawn.find(params[:id])
+    @pawn.execute!
+    redirect_to pawn_path(@pawn)
+  end
   
   private 
   def assign_pawn
@@ -60,12 +67,22 @@ class PawnsController < ApplicationController
   end
 
   def authorize_url
+<<<<<<< HEAD:app/controllers/pawns_controller.rb
     oauth.set_callback_url("http://pawnfarm.com#{finalize_pawn_path}")      
     session['rtoken'] = @pawn.twitter_account.request_token = oauth.request_token.token
     session['rsecret'] = @pawn.twitter_account.request_secret = oauth.request_token.secret
     @pawn.twitter_account.save
     "http://#{oauth.request_token.authorize_url}"
     
+=======
+    setup = YAML::load(File.open(RAILS_ROOT + '/config/setup.yml'))
+    oauth.set_callback_url("#{setup['server_url']}#{finalize_pawn_path}")      
+    session['rtoken'] = @pawn.twitter_account.request_token = oauth.request_token.token
+    session['rsecret'] = @pawn.twitter_account.request_secret = oauth.request_token.secret
+    @pawn.twitter_account.save
+    Rails::logger.info "http://#{oauth.request_token.authorize_url}"
+    "#{oauth.request_token.authorize_url}"
+>>>>>>> 25bd35a3aa49e3778e5e751b3dec810f237a5638:app/controllers/pawns_controller.rb
   end
 
   def assign_token_and_secret(oauth_verifier)

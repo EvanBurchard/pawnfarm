@@ -2,3 +2,6 @@ log/*
 config/database.yml
 tmp/*
 coverage/*
+*.swp
+.bundle/*
+config/setup.yml

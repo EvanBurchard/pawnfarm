@@ -93,11 +93,12 @@ class Execution < ActiveRecord::Base
   end
 
   def create_hit(turk_form)
-    hit = RTurk::Hit.create(:title => "Write a tweet for me (#{Time.now.to_s})") do |hit|
+    setup = YAML::load(File.open(RAILS_ROOT + '/config/setup.yml'))
+    hit = RTurk::Hit.create(:title => "Help me write a tweet (#{Time.now.to_s})") do |hit|
       hit.description = "Write a twitter update"
       hit.reward = 0.02
       hit.assignments = 1
-      hit.question("http://pawnfarm.com/turk_forms/#{turk_form.id}")
+      hit.question("#{setup['server_url']}/turk_forms/#{turk_form.id}")
     end             
   end
 
@@ -141,12 +142,13 @@ class Execution < ActiveRecord::Base
   end
 
   def create_review_hit
+    setup = YAML::load(File.open(RAILS_ROOT + '/config/setup.yml'))
     @turk_form = review_form
     hit = RTurk::Hit.create(:title => "Which response is better? (#{Time.now.to_s})") do |hit|
       hit.description = "Choose the better response given the prompt"
       hit.reward = 0.02
       hit.assignments = 1
-      hit.question("http://pawnfarm.com/turk_forms/#{@turk_form.id}")
+      hit.question("#{setup['server_url']}/turk_forms/#{@turk_form.id}")
     end    
   end
   
@@ -187,6 +189,7 @@ class Execution < ActiveRecord::Base
     if time_to_tweet?
       update_attribute(:tweeted_at, Time.now)
       tweet
+      save
       pawn.tweet(winner)
     end
   end

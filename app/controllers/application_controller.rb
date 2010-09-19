@@ -8,11 +8,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
 
   def oauth
+    setup = YAML::load(File.open(RAILS_ROOT + '/config/setup.yml'))
     if RAILS_ENV=="test"
-      @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true)
+      @oauth ||= Twitter::OAuth.new(setup['twitter']['api_token'], setup['twitter']['api_secret'], :sign_in => true)
     else
-      @endpoint = 'http://'+ENV['APIGEE_TWITTER_API_ENDPOINT']
-      @oauth ||= Twitter::OAuth.new("FLZ8YtbDLHMEWai08DbVQ", "u4XTsn5NV2NAzezQ48JnWrvrKwPNn3pbsMPO33EkVU", :sign_in => true, :api_endpoint => @endpoint)      
+      @endpoint = 'http://'+ (setup["twitter"]["apigee"] == 'yes' ? Env["APIGEE_TWITTER_API_ENDPOINT"] : "api.twitter.com" ) 
+      @oauth ||= Twitter::OAuth.new(setup['twitter']['api_token'], setup['twitter']['api_secret'], :sign_in => true, :api_endpoint => @endpoint)      
     end
   end
   
