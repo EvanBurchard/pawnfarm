@@ -65,7 +65,7 @@ class PawnsController < ApplicationController
     session['rsecret'] = @pawn.twitter_account.request_secret = oauth.request_token.secret
     @pawn.twitter_account.save
     Rails::logger.info "http://#{oauth.request_token.authorize_url}"
-    "http://#{oauth.request_token.authorize_url}"
+    "#{oauth.request_token.authorize_url}"
   end
 
   def assign_token_and_secret(oauth_verifier)
