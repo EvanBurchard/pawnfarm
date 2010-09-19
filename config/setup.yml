@@ -3,6 +3,8 @@ aws:
   secret: 'H5zZZAHKQXIiIs57YeYWIqy4etlZm5gCQMLt9xVz'
 
 twitter:
-  api_token: '192366112-AN3IJ3RW6dhZIkQ2WQvXFixuvLucxp5DGqWrDsFs'
-  api_secret: '1BcAiKx1KQEftDP75JgYFYF1OGLsjeTKGhdPGtj3Zo'
-  apigee: 'no' 
+  api_token: '4GKhV6IgDLyKhirFRomfA'
+  api_secret: 'OzOExHdFFBRQ0V3n0avnjQm5IylJ6TL9K3iLLtWd7Y'
+  apigee: 'yes' 
+
+
