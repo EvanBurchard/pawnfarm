@@ -1,8 +1,8 @@
 aws:
-  key: "key"
-  secret: "secret"
+  key: 'key'
+  secret: 'secret'
 
 twitter:
-  api_token:"token!"
-  api_secret:"api_secret!"
-  apigee_endpoint: "awesome_url" 
+  api_token: 'token!'
+  api_secret: 'api_secret!'
+  apigee: 'yes' 
