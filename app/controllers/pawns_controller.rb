@@ -46,8 +46,10 @@ class PawnsController < ApplicationController
   end
 
   def execute
+    puts params[:id]
     @pawn = Pawn.find(params[:id])
     @pawn.execute!
+    redirect_to pawn_path(@pawn)
   end
   
   private 
