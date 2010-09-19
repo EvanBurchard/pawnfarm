@@ -5,4 +5,4 @@ aws:
 twitter:
   api_token: '192366112-AN3IJ3RW6dhZIkQ2WQvXFixuvLucxp5DGqWrDsFs'
   api_secret: '1BcAiKx1KQEftDP75JgYFYF1OGLsjeTKGhdPGtj3Zo'
-  apigee: 'yes' 
+  apigee: 'no' 
