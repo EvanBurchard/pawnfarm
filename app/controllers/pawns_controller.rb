@@ -64,8 +64,8 @@ class PawnsController < ApplicationController
     session['rtoken'] = @pawn.twitter_account.request_token = oauth.request_token.token
     session['rsecret'] = @pawn.twitter_account.request_secret = oauth.request_token.secret
     @pawn.twitter_account.save
+    puts "http://#{oauth.request_token.authorize_url}"
     "http://#{oauth.request_token.authorize_url}"
-    
   end
 
   def assign_token_and_secret(oauth_verifier)
