@@ -1,8 +1,10 @@
 <h1><%=h @pawn.name%></h1>
 <p><%=h @pawn.description%></p>
+<p>Execution states</p><ul>
 <% @pawn.executions.each do |exec| %>
-  <% exec.state.humanize %>
+  <li><% exec.state.humanize %></li>
 <% end %>
+</ul>
 <% if @is_owner %>
 <%= link_to "Edit", edit_pawn_path(@pawn) %>
 <%= link_to "Delete", @pawn, :confirm => "Are you sure you want to delete this pawn?", :method => :delete %>
